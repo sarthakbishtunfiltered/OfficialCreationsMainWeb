@@ -1,0 +1,51 @@
+{
+  "_help": "Fill these in, then run: python3 build.py. Empty values are simply left out of the site.",
+  "contact_email": "REPLACE_ME@example.com",
+  "booking_url": "",
+  "founder_name": "",
+  "founder_note": "",
+  "socials": {
+    "LinkedIn": "",
+    "Instagram": "",
+    "X": "",
+    "YouTube": "",
+    "Facebook": ""
+  },
+  "work": [
+    {
+      "name": "Lead Automation",
+      "text": "A Python backend that captures and organises leads in Google Sheets. A dashboard is being built on top of it.",
+      "status": "Internal system"
+    },
+    {
+      "name": "Social Multi-post Automation",
+      "text": "Publishes scheduled posts from Google Sheets and Drive to several social platforms from one place.",
+      "status": "Internal system"
+    },
+    {
+      "name": "Website Generator",
+      "text": "Produces websites for set business niches from submitted business details, in Simple and Premium designs.",
+      "status": "Internal system"
+    }
+  ],
+  "products": [
+    {
+      "name": "OC Portal",
+      "text": "A single place for a business to see sales, customers, reports and meetings.",
+      "tie": "Builds on Business Operations.",
+      "status": "Planned"
+    },
+    {
+      "name": "OC POS",
+      "text": "Point-of-sale that feeds the same records as the rest of the ecosystem.",
+      "tie": "Builds on Business Operations.",
+      "status": "Planned"
+    },
+    {
+      "name": "OC CRM",
+      "text": "Customer and lead management connected to the website and the portal.",
+      "tie": "Builds on Lead Automation.",
+      "status": "Planned"
+    }
+  ]
+}
