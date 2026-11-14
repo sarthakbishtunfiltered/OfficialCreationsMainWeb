@@ -73,7 +73,7 @@ def header(key):
     return f"""<a class="skip" href="#main">Skip to content</a>
 <header class="nav">
   <div class="nav-bar">
-    <a class="logo" href="index.html" aria-label="Official Creations, home">OC<small>Official Creations</small></a>
+    <a class="logo" href="index.html" aria-label="Official Creations, home"><img src="assets/img/oc-logo.png" alt="" width="280" height="336"><small>Official Creations</small></a>
     <button class="nav-toggle" type="button" aria-expanded="false" aria-controls="nav-links" aria-label="Open menu"><span></span><span></span></button>
     <nav id="nav-links" class="nav-links" aria-label="Main">
       {items}
@@ -93,7 +93,7 @@ def footer():
     return f"""<footer class="footer">
   <div class="wrap">
     <div class="footer-grid">
-      <div><div class="brand">OC</div><p class="brand-sub">Official Creations. From Offline to Online. Beyond.</p></div>
+      <div><img class="brand" src="assets/img/oc-logo-white.png" alt="Official Creations" width="280" height="336"><p class="brand-sub">Official Creations. From Offline to Online. Beyond.</p></div>
       <div><h4>Explore</h4><ul>
         <li><a href="index.html">Home</a></li><li><a href="ecosystem.html">Our Ecosystem</a></li>
         <li><a href="products.html">Products</a></li><li><a href="about.html">About</a></li></ul></div>
@@ -119,6 +119,8 @@ def page(fname, key, title, desc, body):
 <meta property="og:title" content="{esc(title)}">
 <meta property="og:description" content="{esc(desc)}">
 <meta property="og:type" content="website">
+<link rel="icon" type="image/png" href="assets/img/oc-logo-white-on-black.png">
+<link rel="apple-touch-icon" href="assets/img/oc-logo-white-on-black.png">
 {FONTS}
 <link rel="stylesheet" href="assets/css/oc.css">
 </head>
@@ -175,7 +177,7 @@ def eco_map():
     return f"""<div class="map" data-map>
   <svg viewBox="0 0 600 460" role="group" aria-label="Official Creations ecosystem: four connected layers around a shared centre">
     {''.join(cross)}{''.join(lines)}
-    <g class="hub"><circle cx="{cx}" cy="{cy}" r="52"/><text x="{cx}" y="{cy + 12}">OC</text></g>
+    <g class="hub"><circle cx="{cx}" cy="{cy}" r="52"/><image href="assets/img/oc-mark-white.png" x="{cx - 23.15}" y="{cy - 28}" width="46.3" height="56" aria-hidden="true"/></g>
     {''.join(nodes)}
   </svg>
   <div class="map-panel" aria-live="polite">

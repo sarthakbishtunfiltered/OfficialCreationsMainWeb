@@ -110,8 +110,9 @@ ul { margin: 0; padding: 0; list-style: none; }
   transition: background .3s;
 }
 .nav-bar { display: flex; align-items: center; justify-content: space-between; padding: .55rem .6rem .55rem 1.2rem; gap: 1rem; }
-.logo { font: 800 1.35rem/1 var(--f-display); letter-spacing: -.04em; text-decoration: none; }
-.logo small { font: 500 .72rem/1 var(--f-body); letter-spacing: 0; margin-left: .55rem; color: var(--ink-2); }
+.logo { display: inline-flex; align-items: center; gap: .65rem; text-decoration: none; }
+.logo img { height: 2.3rem; width: auto; }
+.logo small { font: 600 .85rem/1 var(--f-body); letter-spacing: 0; color: var(--ink); }
 .nav-links { display: flex; align-items: center; gap: .15rem; }
 .nav-links a { text-decoration: none; font-size: .9rem; font-weight: 500; white-space: nowrap; padding: .5rem .7rem; border-radius: 999px; transition: background .25s; }
 .nav-links a:hover { background: rgba(27, 24, 26, .07); }
@@ -161,7 +162,6 @@ ul { margin: 0; padding: 0; list-style: none; }
 .map .cross { stroke-dasharray: 4 7; animation: none; stroke-dashoffset: 0; opacity: .3; }
 @keyframes draw { to { stroke-dashoffset: 0; } }
 .map .hub circle { fill: var(--ink); }
-.map .hub text { fill: var(--cream); font: 800 34px var(--f-display); letter-spacing: -.04em; text-anchor: middle; }
 .map .node { cursor: pointer; outline: none; }
 .map .node rect { fill: var(--paper); stroke: var(--ink); stroke-width: 1.5; transition: fill .3s, stroke .3s; }
 .map .node text { font: 700 19px var(--f-display); letter-spacing: -.02em; fill: var(--ink); text-anchor: middle; transition: fill .3s; pointer-events: none; }
@@ -264,7 +264,7 @@ ul { margin: 0; padding: 0; list-style: none; }
 .footer li { margin-bottom: .45rem; }
 .footer a { text-decoration: none; opacity: .85; }
 .footer a:hover { opacity: 1; text-decoration: underline; text-underline-offset: 4px; }
-.footer .brand { font: 800 clamp(2.4rem, 5vw, 4rem)/1 var(--f-display); letter-spacing: -.05em; margin-bottom: .6rem; }
+.footer .brand { height: clamp(4.5rem, 8vw, 6.5rem); width: auto; margin-bottom: 1rem; }
 .footer .brand-sub { opacity: .75; max-width: 28ch; }
 .legal { margin-top: 3rem; padding-top: 1.2rem; border-top: 1px solid var(--line-dark); font-size: .9rem; opacity: .7; display: flex; justify-content: space-between; flex-wrap: wrap; gap: .5rem; }
 
