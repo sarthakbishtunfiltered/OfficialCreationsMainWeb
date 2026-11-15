@@ -388,3 +388,23 @@ form.consult { background: var(--paper); border: 1.5px solid var(--ink); border-
 .no-js .hero h1 .ln > span { transform: none; animation: none; }
 .no-js .map .link-line { stroke-dashoffset: 0; animation: none; }
 .no-js .step::before { transform: none; }
+
+/* ---------- Legal pages ---------- */
+.foot-legal-links { display: flex; gap: .9rem; align-items: center; }
+.foot-legal-links span { font-weight: 700; color: var(--ink); }
+.foot-legal-links a { text-underline-offset: 3px; }
+.legal { display: grid; gap: 2.5rem 5rem; }
+@media (min-width: 1000px) { .legal { grid-template-columns: 17rem minmax(0, 46rem); align-items: start; } .legal-toc { position: sticky; top: 7rem; } }
+.legal-toc { background: var(--lav); border-radius: 22px; padding: 1.3rem 1.5rem; }
+.legal-toc h2 { font-size: 1.1rem; margin-bottom: .8rem; }
+.legal-toc ol { margin: 0; padding-left: 1.2rem; font-size: .92rem; display: grid; gap: .35rem; list-style: none; padding-left: 0; }
+.legal-toc a { text-decoration: none; } .legal-toc a:hover { text-decoration: underline; }
+@media (min-width: 1000px) { .legal-toc { max-height: calc(100vh - 9rem); overflow: auto; } }
+.legal-doc h2 { font-size: clamp(1.3rem, 1.1rem + .8vw, 1.8rem); margin: 2.6rem 0 .9rem; scroll-margin-top: 6.5rem; }
+.legal-doc h2:first-child { margin-top: 0; }
+.legal-doc p, .legal-doc li { color: var(--ink-2); max-width: 68ch; }
+.legal-doc ul { padding-left: 1.2rem; margin: 0 0 1.2em; list-style: disc; display: grid; gap: .3rem; }
+.legal-doc strong { color: var(--ink); }
+.legal-doc hr { border: 0; border-top: 1px solid var(--line); margin: 2.4rem 0 1.4rem; }
+.legal-doc a { color: var(--ink); }
+mark.ph { background: var(--butter); color: var(--ink); border-radius: 5px; padding: 0 .3em; }

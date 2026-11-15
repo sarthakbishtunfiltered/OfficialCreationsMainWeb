@@ -6,6 +6,7 @@ Run:  python3 build.py
 """
 import html
 import json
+import re
 import pathlib
 
 ROOT = pathlib.Path(__file__).parent
@@ -145,7 +146,7 @@ def footer():
         <li><a href="business-operations.html">Business Operations</a></li></ul></div>
       <div><h4>Contact</h4><ul>{contact}</ul></div>
     </div>
-    <div class="foot-legal"><span>&copy; <span id="yr">2026</span> Official Creations</span><span>All rights reserved</span></div>
+    <div class="foot-legal"><span>&copy; <span id="yr">2026</span> Official Creations &middot; All rights reserved</span><nav class="foot-legal-links" aria-label="Legal"><span>Legal</span><a href="terms.html">Terms of Service</a></nav></div>
   </div></div>
 </footer>"""
 
@@ -605,10 +606,95 @@ def book():
          "Book a consultation with Official Creations to review your business, your digital presence and where you could scale.", body)
 
 
+# ---------- Legal: Terms of Service (content/terms-of-service.md) ----------
+def _inline(t):
+    t = esc(t)
+    t = re.sub(r"\*\*(.+?)\*\*", r"<strong>\1</strong>", t)
+    return re.sub(r"(https?://[^\s<]+)", r'<a href="\1">\1</a>', t)
+
+
+def _fill(t):
+    L = CFG.get("legal", {})
+    pairs = {"[DATE]": L.get("last_updated", ""), "[LEGAL OPERATOR NAME]": L.get("legal_operator", ""),
+             "[REGISTERED BUSINESS NAME]": L.get("registered_name", ""), "[BUSINESS ADDRESS]": L.get("business_address", ""),
+             "[OFFICIAL CONTACT EMAIL]": CFG["contact_email"]}
+    for k, v in pairs.items():
+        t = t.replace(k, v.strip() if v.strip() else "\u2063" + k)
+    return t
+
+
+def _md_legal(src):
+    out, toc, ul, para = [], [], False, []
+
+    def flush():
+        nonlocal para
+        if para:
+            out.append("<p>" + " ".join(para) + "</p>")
+            para = []
+
+    def mark(h):
+        return re.sub(r"(\u2063)(\[[^\]]+\])", r'<mark class="ph">\2</mark>', h)
+
+    for raw in src.splitlines():
+        line = _fill(raw.rstrip())
+        if line.startswith("- "):
+            flush()
+            if not ul:
+                out.append("<ul>"); ul = True
+            out.append("<li>" + mark(_inline(line[2:])) + "</li>")
+            continue
+        if ul:
+            out.append("</ul>"); ul = False
+        if not line.strip():
+            flush(); continue
+        if line.startswith("## "):
+            flush()
+            title = line[3:]
+            m = re.match(r"(\d+)\.\s*(.*)", title)
+            slug = "s" + (m.group(1) if m else str(len(toc) + 1))
+            toc.append((slug, title))
+            out.append(f'<h2 id="{slug}">{mark(_inline(title))}</h2>')
+        elif line.startswith("# "):
+            flush()
+        elif line.strip() == "---":
+            flush(); out.append("<hr>")
+        else:
+            para.append(mark(_inline(line)))
+    flush()
+    if ul:
+        out.append("</ul>")
+    return "\n".join(out), toc
+
+
+def terms():
+    src = (ROOT / "content" / "terms-of-service.md").read_text(encoding="utf-8")
+    src = re.sub(r"^#\s.*\n", "", src, count=1)
+    stamp = None
+    m = re.search(r"\*\*Last Updated:\*\*\s*(.*)", src)
+    if m:
+        stamp = _fill(m.group(1))
+        src = src.replace(m.group(0), "", 1)
+    html_body, toc = _md_legal(src)
+    stamp_html = re.sub(r"(\u2063)(\[[^\]]+\])", r'<mark class="ph">\2</mark>', stamp or "")
+    toc_html = "".join(f'<li><a href="#{s}">{esc(t)}</a></li>' for s, t in toc)
+    body = f"""
+<section class="page-hero"><div class="wrap">
+  <h1>Terms of Service</h1>
+  <p class="lede">Last updated: {stamp_html}</p>
+</div></section>
+<section class="section" style="padding-top:0"><div class="wrap legal">
+  <nav class="legal-toc" aria-label="Contents"><h2>Contents</h2><ol>{toc_html}</ol></nav>
+  <article class="legal-doc">{html_body}</article>
+</div></section>
+"""
+    page("terms.html", "terms", "Terms of Service | Official Creations",
+         "The terms that govern use of the Official Creations website, platforms and services.", body)
+
+
 if __name__ == "__main__":
     import sys
     import homepage
     homepage.build(sys.modules[__name__])
-    for fn in (ecosystem, digital, ops, products, about, book):
+    for fn in (ecosystem, digital, ops, products, about, book, terms):
         fn()
-    print("Built 7 pages.")
+    print("Built 8 pages.")

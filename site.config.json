@@ -1,5 +1,5 @@
 {
-  "_help": "Fill these in, then run: python3 build.py. Empty values are left out of the site. contact_email is shown publicly; every consultation request is addressed to it and to also_send_to. whatsapp is digits only with the country code.",
+  "_help": "Fill these in, then run: python3 build.py. Empty values are left out of the site. contact_email is shown publicly; every consultation request is addressed to it and to also_send_to. whatsapp is digits only with the country code. legal fills the placeholders on the Terms of Service page; empty values stay as visible [BRACKETS].",
   "contact_email": "officialcreations.online@gmail.com",
   "also_send_to": [
     "sarthakbishtunfiltered@gmail.com"
@@ -51,5 +51,11 @@
       "tie": "Builds on Lead Automation.",
       "status": "Planned"
     }
-  ]
+  ],
+  "legal": {
+    "last_updated": "",
+    "legal_operator": "",
+    "registered_name": "",
+    "business_address": ""
+  }
 }
