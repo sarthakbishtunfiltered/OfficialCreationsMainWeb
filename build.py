@@ -175,8 +175,8 @@ def consult_form(p, mini=False):
         f'</div>'
     )
     full = "" if mini else (
-        f'<div class="field"><label for="{p}-business">Business name</label><input id="{p}-business" name="business" required autocomplete="organization"></div>'
-        f'<div class="field"><label for="{p}-site">Website or social page <span>(optional)</span></label><input id="{p}-site" name="site"></div>'
+        f'<div class="field-row"><div class="field"><label for="{p}-business">Business name</label><input id="{p}-business" name="business" required autocomplete="organization"></div>'
+        f'<div class="field"><label for="{p}-site">Website or social page <span>(optional)</span></label><input id="{p}-site" name="site"></div></div>'
         f'<div class="field"><label for="{p}-interest">What are you looking for?</label>'
         f'<select id="{p}-interest" name="interest">'
         f'<option>A website or better online presence</option><option>Better systems and automation</option>'

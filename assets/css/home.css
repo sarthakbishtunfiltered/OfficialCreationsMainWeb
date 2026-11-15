@@ -340,17 +340,17 @@
 /* v13: tilted tags over the headline */
 .h-title { position: relative; display: inline-block; max-width: 100%; }
 .tags { position: absolute; inset: 0; pointer-events: none; }
-.tag { position: absolute; display: block; font: 600 clamp(.62rem, .5rem + .5vw, .98rem)/1 var(--f-body); font-style: normal; letter-spacing: 0; white-space: nowrap; color: var(--ink); padding: .5em 1em; border: 1.5px solid var(--ink); border-radius: 99px; box-shadow: 2px 3px 0 var(--ink); opacity: 0; transform: rotate(var(--r)) scale(.5); animation: tagin .6s var(--ease) forwards; animation-delay: calc(.95s + var(--i) * .12s); }
-.tag.t1 { --r: 7deg; left: 70%; top: -9%; background: #9DB2F7; }
-.tag.t2 { --r: -8deg; left: -34%; top: 40%; background: #8ED6A8; }
-.tag.t3 { --r: 8deg; left: 82%; top: 58%; background: #F6C9D6; }
-.tag.t4 { --r: -7deg; left: 68%; top: 88%; background: #FBE27A; }
+.htag { position: absolute; display: block; font: 600 clamp(.62rem, .5rem + .5vw, .98rem)/1 var(--f-body); font-style: normal; letter-spacing: 0; white-space: nowrap; color: var(--ink); padding: .5em 1em; border: 1.5px solid var(--ink); border-radius: 99px; box-shadow: 2px 3px 0 var(--ink); opacity: 0; transform: rotate(var(--r)) scale(.5); animation: tagin .6s var(--ease) forwards; animation-delay: calc(.95s + var(--i) * .12s); }
+.htag.t1 { --r: 7deg; left: 70%; top: -9%; background: #9DB2F7; }
+.htag.t2 { --r: -8deg; left: -34%; top: 40%; background: #8ED6A8; }
+.htag.t3 { --r: 8deg; left: 82%; top: 58%; background: #F6C9D6; }
+.htag.t4 { --r: -7deg; left: 68%; top: 88%; background: #FBE27A; }
 @keyframes tagin { to { opacity: 1; transform: rotate(var(--r)) scale(1); } }
-@media (max-width: 560px) { .tag.t1 { left: 62%; top: -12%; } .tag.t2 { left: -26%; top: 40%; } .tag.t3 { left: 76%; top: 58%; } .tag.t4 { left: 62%; top: 88%; } }
+@media (max-width: 560px) { .htag.t1 { left: 62%; top: -12%; } .htag.t2 { left: -26%; top: 40%; } .htag.t3 { left: 76%; top: 58%; } .htag.t4 { left: 62%; top: 88%; } }
 @media (max-width: 560px) {
   .h-hero { padding-top: 7.6rem; }
-  .tag { font-size: .58rem; box-shadow: 1.5px 2px 0 var(--ink); }
-  .tag.t1 { left: 66%; top: -16%; } .tag.t2 { left: -40%; top: 42%; } .tag.t3 { left: 74%; top: 60%; } .tag.t4 { left: 60%; top: 90%; }
+  .htag { font-size: .58rem; box-shadow: 1.5px 2px 0 var(--ink); }
+  .htag.t1 { left: 66%; top: -16%; } .htag.t2 { left: -40%; top: 42%; } .htag.t3 { left: 74%; top: 60%; } .htag.t4 { left: 60%; top: 90%; }
 }
 
 /* v19: hero line fits two lines on desktop */
@@ -358,21 +358,21 @@
 
 /* v14: two-line headline, "Beyond." runs on after "to Online." */
 .h-hero h1 .by { font-family: "Instrument Serif", "Playfair Display", Georgia, serif; font-style: italic; font-weight: 400; letter-spacing: -.02em; font-size: 1.12em; line-height: .9; }
-.tag.t1 { left: 64%; top: -20%; }
-.tag.t2 { left: -26%; top: 4%; }
-.tag.t3 { left: 80%; top: 70%; }
-.tag.t4 { left: 10%; top: 92%; }
+.htag.t1 { left: 64%; top: -20%; }
+.htag.t2 { left: -26%; top: 4%; }
+.htag.t3 { left: 80%; top: 70%; }
+.htag.t4 { left: 10%; top: 92%; }
 @media (max-width: 560px) {
-  .tag.t1 { left: 62%; top: -26%; } .tag.t2 { left: -26%; top: 2%; } .tag.t3 { left: 72%; top: 74%; } .tag.t4 { left: 6%; top: 96%; }
+  .htag.t1 { left: 62%; top: -26%; } .htag.t2 { left: -26%; top: 2%; } .htag.t3 { left: 72%; top: 74%; } .htag.t4 { left: 6%; top: 96%; }
 }
 .h-hero .lede { text-wrap: balance; }
 .h-hero .h-pill { margin-top: clamp(1.7rem, 3vw, 2.2rem); }
-.tag.t1 { left: 58%; top: -24%; }
-.tag.t2 { left: -24%; top: 6%; }
-.tag.t3 { left: 87%; top: 12%; }
-.tag.t4 { left: 3%; top: 90%; }
+.htag.t1 { left: 58%; top: -24%; }
+.htag.t2 { left: -24%; top: 6%; }
+.htag.t3 { left: 87%; top: 12%; }
+.htag.t4 { left: 3%; top: 90%; }
 @media (max-width: 560px) {
-  .tag.t1 { left: 60%; top: -34%; } .tag.t2 { left: -6%; top: -34%; } .tag.t3 { left: 84%; top: 8%; } .tag.t4 { left: -2%; top: 90%; }
+  .htag.t1 { left: 60%; top: -34%; } .htag.t2 { left: -6%; top: -34%; } .htag.t3 { left: 84%; top: 8%; } .htag.t4 { left: -2%; top: 90%; }
   .h-hero { padding-top: 8.2rem; }
 }
 
