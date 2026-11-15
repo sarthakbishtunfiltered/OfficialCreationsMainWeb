@@ -168,17 +168,29 @@ ul { margin: 0; padding: 0; list-style: none; }
 
 /* ---------- Ecosystem map ---------- */
 .map { position: relative; }
-.map svg { width: 100%; height: auto; overflow: visible; }
-.map .link-line { fill: none; stroke: var(--ink); stroke-width: 1.6; stroke-linecap: round; stroke-dasharray: 600; stroke-dashoffset: 600; animation: draw 1.6s var(--ease) .5s forwards; opacity: .55; transition: opacity .3s, stroke .3s; }
-.map .cross { stroke-dasharray: 4 7; animation: none; stroke-dashoffset: 0; opacity: .3; }
+.map svg { width: 100%; height: auto; overflow: visible; display: block; }
+.map .link-line { fill: none; stroke: var(--ink); stroke-width: 1.3; stroke-linecap: round; stroke-dasharray: 600; stroke-dashoffset: 600; animation: draw 1.6s var(--ease) .5s forwards; transition: stroke .3s; }
+.map .cross { stroke-dasharray: 5 6; animation: none; stroke-dashoffset: 0; opacity: .6; }
 @keyframes draw { to { stroke-dashoffset: 0; } }
-.map .hub circle { fill: var(--ink); }
+.map .dia { fill: var(--cream); stroke: var(--ink); stroke-width: 1.3; stroke-linejoin: round; }
+.map .hub .sh { fill: var(--ink); }
+.map .hub .tile { fill: var(--ink); stroke: var(--ink); stroke-width: 1.5; }
 .map .node { cursor: pointer; outline: none; }
-.map .node rect { fill: var(--paper); stroke: var(--ink); stroke-width: 1.5; transition: fill .3s, stroke .3s; }
-.map .node text { font: 700 19px var(--f-display); letter-spacing: -.02em; fill: var(--ink); text-anchor: middle; transition: fill .3s; pointer-events: none; }
-.map .node.on rect, .map .node:focus-visible rect { fill: var(--plum); stroke: var(--plum); }
-.map .node.on text, .map .node:focus-visible text { fill: var(--cream); }
-.map .node:focus-visible rect { stroke: var(--ink); stroke-width: 3; }
+.map .node .sh { fill: var(--ink); transition: transform .25s var(--ease); }
+.map .node .face { transition: transform .25s var(--ease); }
+.map .node .card { stroke: var(--ink); stroke-width: 1.5; transition: fill .3s; }
+.map .node .tile { fill: var(--paper); stroke: var(--ink); stroke-width: 1.5; }
+.map .node .ico { fill: none; stroke: var(--ink); stroke-width: 1.6; stroke-linecap: round; stroke-linejoin: round; }
+.map .node.n0 .card { fill: #E6DEF7; } .map .node.n1 .card { fill: #CFEBD9; }
+.map .node.n2 .card { fill: #F8D9D2; } .map .node.n3 .card { fill: #FBEBB8; }
+.map .node text { fill: var(--ink); pointer-events: none; }
+.map .node .t1 { font: 700 17px var(--f-display); letter-spacing: -.02em; }
+.map .node .t2 { font: 500 12.5px var(--f-body); fill: var(--ink-2); }
+.map .node.on .face, .map .node:focus-visible .face, .map .node:active .face { transform: translate(5px, 5px); }
+.map .node.on .sh, .map .node:focus-visible .sh { transform: translate(-2px, -2px); }
+.map .node:focus-visible .card { stroke-width: 3; }
+.map-card { background-image: radial-gradient(rgba(27, 24, 26, .22) 1.1px, transparent 1.3px); background-size: 20px 20px; border: 1.5px solid var(--ink); border-radius: clamp(22px, 3vw, 36px); padding: clamp(1rem, 3vw, 2rem); }
+@media (max-width: 560px) { .map .node .t2, .map .node .tile, .map .node .ico { display: none; } .map .node .t1 { font-size: 20px; transform: translate(-50px, 12px); } }
 .map-panel { border-top: 1.5px solid var(--ink); margin-top: 1rem; padding-top: 1rem; min-height: 8.5rem; }
 .map-panel h3 { font-size: var(--step-1); margin-bottom: .4rem; }
 .map-panel p { margin-bottom: .8rem; color: var(--ink-2); }

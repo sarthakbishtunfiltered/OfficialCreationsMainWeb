@@ -258,34 +258,64 @@ def final_cta(text="Tell us about your business."):
 
 # ---------- Ecosystem map (shared by home + ecosystem page) ----------
 MAP_NODES = [
-    ("Digital Presence", "How people find, judge and contact your business.", "digital-presence.html", "See Digital Presence", 105, 70),
-    ("Business Operations", "How the work gets done behind the scenes, with connected systems.", "business-operations.html", "See Business Operations", 495, 70),
-    ("Products", "Software and SaaS products shaped around real business problems.", "products.html", "See Products", 495, 390),
-    ("Internal tools", "The automation systems OC builds and runs itself, and builds on.", "products.html#internal", "See the systems", 105, 390),
+    ("Digital Presence", "How people find, judge and contact your business.", "digital-presence.html", "See Digital Presence", 150, 82, "Websites, search, identity"),
+    ("Business Operations", "How the work gets done behind the scenes, with connected systems.", "business-operations.html", "See Business Operations", 450, 82, "Systems, automation, leads"),
+    ("Products", "Software and SaaS products shaped around real business problems.", "products.html", "See Products", 450, 378, "Software and SaaS"),
+    ("Internal tools", "The automation systems OC builds and runs itself, and builds on.", "products.html#internal", "See the systems", 150, 378, "Built and run by OC"),
+]
+# Small 20x20 line icons, drawn for OC.
+MAP_ICONS = [
+    '<rect x="2" y="4" width="16" height="12" rx="2"/><path d="M2 8h16M5 6h.01M7.5 6h.01"/>',
+    '<circle cx="10" cy="10" r="2.6"/><path d="M10 2.5v3M10 14.5v3M2.5 10h3M14.5 10h3M4.7 4.7l2.1 2.1M13.2 13.2l2.1 2.1M15.3 4.7l-2.1 2.1M6.8 13.2l-2.1 2.1"/>',
+    '<path d="M10 2.5l7 3.5v8l-7 3.5-7-3.5V6z"/><path d="M3 6l7 3.5L17 6M10 9.5V17.5"/>',
+    '<path d="M3 5.5l4 4.5-4 4.5M9.5 15h7"/>',
 ]
 
 
 def eco_map():
     cx, cy = 300, 230
-    lines, cross, nodes = [], [], []
-    for _t, _p, _h, _l, x, y in MAP_NODES:
-        lines.append(f'<path class="link-line" d="M{cx} {cy} Q{(cx + x) // 2 + (12 if x > cx else -12)} {(cy + y) // 2} {x} {y}"/>')
-    order = [0, 1, 2, 3, 0]
-    for a, b in zip(order, order[1:]):
-        ax, ay = MAP_NODES[a][4], MAP_NODES[a][5]
-        bx, by = MAP_NODES[b][4], MAP_NODES[b][5]
-        cross.append(f'<path class="link-line cross" d="M{ax} {ay} L{bx} {by}"/>')
-    for t, p, h, l, x, y in MAP_NODES:
-        w = 212
+    W, H = 256, 84
+    lines, cross, marks, nodes = [], [], [], []
+
+    def diamond(x, y):
+        return f'<path class="dia" d="M{x} {y - 6}L{x + 6} {y}L{x} {y + 6}L{x - 6} {y}Z"/>'
+
+    def bez(p0, p1, p2, p3):
+        return tuple(round(.125 * p0[k] + .375 * p1[k] + .375 * p2[k] + .125 * p3[k]) for k in (0, 1))
+
+    def curve(cls, p0, p1, p2, p3):
+        lines.append(f'<path class="link-line{cls}" d="M{p0[0]} {p0[1]} C{p1[0]} {p1[1]} {p2[0]} {p2[1]} {p3[0]} {p3[1]}"/>')
+        m = bez(p0, p1, p2, p3)
+        marks.append(diamond(m[0], m[1]))
+
+    # Spokes: smooth S-curves from the hub to the inner edge of each card.
+    for _t, _p, _h, _l, x, y, _s in MAP_NODES:
+        ex = 215 if x < cx else 385
+        if y < cy:
+            curve("", (cx, cy), (cx, 175), (ex, 185), (ex, y + 42))
+        else:
+            curve("", (cx, cy), (cx, 285), (ex, 275), (ex, y - 42))
+    # Outer loop: gentle arcs joining neighbouring cards.
+    curve(" cross", (200, 40), (200, -2), (400, -2), (400, 40))
+    curve(" cross", (530, 124), (592, 190), (592, 270), (530, 336))
+    curve(" cross", (400, 420), (400, 462), (200, 462), (200, 420))
+    curve(" cross", (70, 336), (8, 270), (8, 190), (70, 124))
+    for i, (t, p, h, l, x, y, sub) in enumerate(MAP_NODES):
+        x0, y0 = x - W // 2, y - H // 2
         nodes.append(
-            f'<a class="node" href="{h}" data-title="{esc(t)}" data-text="{esc(p)}" data-href="{h}" data-link="{esc(l)}" '
-            f'aria-label="{esc(t)}: {esc(p)}"><rect x="{x - w // 2}" y="{y - 26}" width="{w}" height="52" rx="26"/>'
-            f'<text x="{x}" y="{y + 7}">{esc(t)}</text></a>'
+            f'<a class="node n{i}" href="{h}" data-title="{esc(t)}" data-text="{esc(p)}" data-href="{h}" data-link="{esc(l)}" '
+            f'aria-label="{esc(t)}: {esc(p)}">'
+            f'<rect class="sh" x="{x0 + 7}" y="{y0 + 7}" width="{W}" height="{H}" rx="18"/>'
+            f'<g class="face"><rect class="card" x="{x0}" y="{y0}" width="{W}" height="{H}" rx="18"/>'
+            f'<rect class="tile" x="{x0 + 16}" y="{y0 + 22}" width="40" height="40" rx="11"/>'
+            f'<g class="ico" transform="translate({x0 + 26} {y0 + 32})">{MAP_ICONS[i]}</g>'
+            f'<text class="t1" x="{x0 + 68}" y="{y0 + 40}">{esc(t)}</text>'
+            f'<text class="t2" x="{x0 + 68}" y="{y0 + 60}">{esc(sub)}</text></g></a>'
         )
     return f"""<div class="map" data-map>
   <svg viewBox="0 0 600 460" role="group" aria-label="Official Creations ecosystem: four connected layers around a shared centre">
-    {''.join(cross)}{''.join(lines)}
-    <g class="hub"><circle cx="{cx}" cy="{cy}" r="52"/><image href="assets/img/oc-mark-white.png" x="{cx - 23.15}" y="{cy - 28}" width="46.3" height="56" aria-hidden="true"/></g>
+    {''.join(lines)}{''.join(marks)}
+    <g class="hub"><rect class="sh" x="{cx - 40 + 6}" y="{cy - 40 + 6}" width="80" height="80" rx="22"/><rect class="tile" x="{cx - 40}" y="{cy - 40}" width="80" height="80" rx="22"/><image href="assets/img/oc-mark-white.png" x="{cx - 17.4}" y="{cy - 21}" width="34.7" height="42" aria-hidden="true"/></g>
     {''.join(nodes)}
   </svg>
   <div class="map-panel" aria-live="polite">
@@ -346,7 +376,7 @@ def ecosystem():
   <p class="lede">Every layer of OC is designed to hand off to the next, so your business doesn't end up with tools that don't talk to each other.</p>
 </div></section>
 
-<section class="section" style="padding-top:0"><div class="wrap">{eco_map()}</div></section>
+<section class="section" style="padding-top:0"><div class="wrap"><div class="map-card">{eco_map()}</div></div></section>
 
 <section class="section dark">{edge("top")}
   <div class="wrap">
