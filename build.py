@@ -684,7 +684,9 @@ def terms():
 </div></section>
 <section class="section" style="padding-top:0"><div class="wrap legal">
   <nav class="legal-toc" aria-label="Contents"><h2>Contents</h2><ol>{toc_html}</ol></nav>
-  <article class="legal-doc">{html_body}</article>
+  <div><article class="legal-doc">{html_body}</article>
+  <aside class="legal-status" aria-label="Status of Official Creations"><h2>Status of Official Creations</h2>
+  <p>Official Creations (&ldquo;OC&rdquo;) is a trading name. It is not currently a registered company, limited liability partnership or other separate legal entity. This page will be updated if that changes.</p></aside></div>
 </div></section>
 """
     page("terms.html", "terms", "Terms of Service | Official Creations",

@@ -408,3 +408,6 @@ form.consult { background: var(--paper); border: 1.5px solid var(--ink); border-
 .legal-doc hr { border: 0; border-top: 1px solid var(--line); margin: 2.4rem 0 1.4rem; }
 .legal-doc a { color: var(--ink); }
 mark.ph { background: var(--butter); color: var(--ink); border-radius: 5px; padding: 0 .3em; }
+.legal-status { margin-top: 2.6rem; background: var(--butter); border-radius: 22px; padding: 1.4rem 1.6rem; max-width: 46rem; }
+.legal-status h2 { font-size: 1.1rem; margin: 0 0 .5rem; }
+.legal-status p { margin: 0; color: var(--ink-2); }
