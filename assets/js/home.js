@@ -76,6 +76,7 @@
     if (!story) return;
     var scene = story.querySelector(".story-scene");
     var wrap = story.closest(".wrap");
+    var eco = document.querySelector(".s-eco");
     var layers = Array.prototype.slice.call(story.querySelectorAll(".ly"));
     var buttons = Array.prototype.slice.call(story.querySelectorAll(".sw"));
     var phone = window.matchMedia("(max-width: 699px)");
@@ -109,9 +110,13 @@
       var fits = panel.height <= h - top - 12;
       story.classList.toggle("nopin", !fits);
       wrap.classList.toggle("nopin", !fits);
+      if (eco) eco.classList.toggle("nopin", !fits);
       if (fits) {
         var r = wrap.getBoundingClientRect();
-        var raw = (top - r.top) / Math.max(1, r.height - panel.height);
+        /* The scrub runs from the moment the panel sticks until the ecosystem card begins to rise into view. */
+        var done = eco ? eco.getBoundingClientRect().top - h : r.height - panel.height - (top - r.top);
+        var since = top - r.top;
+        var raw = since / Math.max(1, since + done);
         return clamp((raw - .04) / .9);
       }
       var s = scene.getBoundingClientRect();
@@ -142,7 +147,7 @@
       if (phone.matches) {
         props.forEach(function (n) { scene.style.removeProperty(n); });
         layers.forEach(function (l) { l.style.removeProperty("--m"); });
-        story.classList.remove("nopin"); wrap.classList.remove("nopin");
+        story.classList.remove("nopin"); wrap.classList.remove("nopin"); if (eco) eco.classList.remove("nopin");
         return;
       }
       scene.classList.remove("is-online");

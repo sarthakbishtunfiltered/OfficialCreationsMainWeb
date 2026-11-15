@@ -304,3 +304,26 @@
 .dash path { stroke-opacity: .28; }
 .mb .shp { filter: none; }
 .h-hero h1 .ln:nth-child(3) > span { font-size: 1.12em; }
+
+/* v13: tighter hero so the buttons and the top of the map card show on first view */
+.h-hero { padding-top: clamp(5.8rem, 8.5vw, 7.6rem); padding-bottom: clamp(4rem, 8vw, 7rem); }
+.h-hero h1 { font-size: clamp(2.3rem, .8rem + 4.6vw, 4.8rem); }
+.h-hero .lede { max-width: 44ch; margin-block: clamp(.9rem, 1.6vw, 1.3rem) clamp(1.1rem, 1.8vw, 1.5rem); }
+.h-pill { margin-top: clamp(1rem, 2vw, 1.5rem); padding: .55rem 1.6rem; }
+.h-stage { margin-top: clamp(1.8rem, 4vw, 3rem); }
+.h-card { max-width: 44rem; }
+@media (min-width: 1000px) { .h-card { width: 44rem; } .h-stage { min-height: 26rem; } }
+
+/* v13: ecosystem rises over the pinned story like a card */
+.s-eco { position: relative; z-index: 2; }
+.s-eco .panel { border-radius: clamp(26px, 3.4vw, 46px) clamp(26px, 3.4vw, 46px) clamp(22px, 3vw, 40px) clamp(22px, 3vw, 40px); border: 1.5px solid var(--ink); box-shadow: 0 -22px 60px -26px rgba(40, 50, 90, .45), 8px 8px 0 var(--ink); }
+@media (min-width: 700px) {
+  .s-story .wrap { height: 290vh; }
+  .s-eco { margin-top: -60vh; }
+  .s-eco.nopin { margin-top: 0; }
+}
+@media (min-width: 1000px) {
+  .s-story .wrap { height: 340vh; }
+  .s-eco { margin-top: -70vh; }
+  .s-eco.nopin { margin-top: 0; }
+}
