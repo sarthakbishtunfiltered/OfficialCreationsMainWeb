@@ -48,9 +48,9 @@ def hero(h):
 <section class="h-hero">
   <div class="h-shapes" aria-hidden="true">{shapes}</div>
   <div class="wrap h-in">
-    <h1><span class="ln"><span>From Offline</span></span><span class="ln"><span>to Online.</span></span><span class="ln"><span>Beyond.</span></span></h1>
-    <p class="h-pill">The OC ecosystem</p>
-    <p class="lede">Official Creations builds the digital and operational foundations that help businesses move online, run better and keep scaling.</p>
+    <div class="h-title"><h1 aria-label="From Offline to Online. Beyond."><span class="ln"><span>From Offline</span></span><span class="ln"><span>to Online. <span class="by">Beyond.</span></span></span></h1>
+    <span class="tags" aria-hidden="true"><i class="tag t1" style="--i:0">Digital Presence</i><i class="tag t2" style="--i:1">Business Operations</i><i class="tag t3" style="--i:2">Products</i><i class="tag t4" style="--i:3">Scalability</i></span></div>
+    <p class="h-pill">A technology partner that scales with you</p>
     <div class="cta-row">{h.btn("Book a Consultation")}{h.btn("Explore Our Ecosystem", "ecosystem.html", ghost=True)}</div>
     <div class="h-stage">
       <div class="dev d-left">{_mb(h)}{hot("digital-presence.html", "Digital Presence")}</div>
