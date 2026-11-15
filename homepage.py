@@ -138,50 +138,58 @@ def story(h):
 </div></section>"""
 
 
-# ---------- Ecosystem constellation ----------
-# index: shape, colour, desktop x/y, mobile x/y (percent of the stage)
-CONSTELLATION = [
-    ("quarter", "indigo", (16, 32), (26, 14), 0),
-    ("circ", "coral", (60, 20), (72, 34), 0),
-    ("diamond", "sun", (82, 72), (70, 84), 0),
-    ("semi", "leaf", (34, 78), (30, 60), 0),
-]
+# ---------- Ecosystem: four layers as tilted cards ----------
 CONSTELLATION_LINKS = {0: [1], 1: [0, 3, 2], 2: [3, 1], 3: [1, 2]}
-CONSTELLATION_EDGES = [(0, 1), (1, 3), (3, 2), (1, 2)]
+_TOOTH = '<circle class="ln" cx="{x}" cy="{y}" r="{r}" stroke-width="6" stroke-dasharray="4.2 4.2"/>'
+ILLS = [
+    ("#E6DEF7", '''<path class="fi sk" d="M20 46V34a10 10 0 0 1 10-10h100a10 10 0 0 1 10 10v12z"/>
+<path class="fw sk" d="M20 46h120v62a10 10 0 0 1-10 10H30a10 10 0 0 1-10-10z"/>
+<circle class="fw" cx="33" cy="35" r="2.8"/><circle class="fw" cx="42" cy="35" r="2.8"/><circle class="fw" cx="51" cy="35" r="2.8"/>
+<rect class="fk" x="30" y="56" width="50" height="9" rx="4.5"/><rect class="fg" x="30" y="71" width="62" height="6" rx="3"/><rect class="fg" x="30" y="82" width="54" height="6" rx="3"/>
+<rect class="fc sk" x="30" y="95" width="32" height="12" rx="6"/><circle class="fs sk" cx="116" cy="74" r="19"/>
+<path class="fk" stroke="#fff" stroke-width="2.5" stroke-linejoin="round" d="M112 88v27l8-7 6 13 6-3-6-12h11z"/>'''),
+    ("#D4EFE0", '''<path class="ln" stroke-dasharray="1 6" d="M80 84v14"/>
+<path class="ln" d="M49 56h14M107 56h-4"/><path class="ln" d="M60 52l5 4-5 4M100 52l5 4-5 4"/>
+<circle class="fi sk" cx="34" cy="56" r="15"/><rect class="fw sk" x="63" y="40" width="34" height="32" rx="9"/>
+<circle class="fl sk" cx="126" cy="56" r="15"/><path class="ln" style="stroke:#fff;stroke-width:3.5" d="M119 56l5 5 9-10"/>
+<path class="ln" style="stroke:#fff;stroke-width:3" d="M70 52h20M70 60h12" />
+''' + _TOOTH.format(x=80, y=106, r=13) + '''<circle class="fs sk" cx="80" cy="106" r="11"/><circle class="fw sk" cx="80" cy="106" r="4"/>'''),
+    ("#F8D9D2", '''<path class="fs sk" d="M80 26l36 20-36 20-36-20z"/><path class="fc sk" d="M44 46l36 20v44L44 90z"/><path class="fi sk" d="M80 66l36-20v44l-36 20z"/>
+<path class="fw sk" d="M62 84l8 4v10l-8-4zM94 90l16-9v10l-16 9z" opacity=".95"/>
+<path class="fk" d="M132 24l2.6 6.4 6.4 2.6-6.4 2.6-2.6 6.4-2.6-6.4-6.4-2.6 6.4-2.6zM26 100l1.8 4.2 4.2 1.8-4.2 1.8-1.8 4.2-1.8-4.2-4.2-1.8 4.2-1.8z"/>'''),
+    ("#FBEBB8", '''<rect class="fk sk" x="20" y="26" width="104" height="74" rx="10"/>
+<circle class="fc" cx="33" cy="38" r="3"/><circle class="fs" cx="43" cy="38" r="3"/><circle class="fl" cx="53" cy="38" r="3"/>
+<path class="ln" style="stroke:#2BD68A;stroke-width:4" d="M34 60l11 8-11 8"/><path class="ln" style="stroke:#fff;stroke-width:4" d="M54 78h24"/><path class="ln" style="stroke:#8C84B8;stroke-width:4" d="M54 62h34"/>
+''' + _TOOTH.format(x=122, y=96, r=17) + '''<circle class="fs sk" cx="122" cy="96" r="14"/><circle class="fw sk" cx="122" cy="96" r="5"/>'''),
+]
 
 
 def constellation(h):
-    nodes, lines_d, lines_m = [], [], []
-    for i, (kind, colour, d, m, rot) in enumerate(CONSTELLATION):
+    nodes = []
+    for i, (bg, art) in enumerate(ILLS):
         title, text, href, link, *_ = h.MAP_NODES[i]
         links = ",".join(str(x) for x in CONSTELLATION_LINKS[i])
         nodes.append(
             f'<button type="button" class="cnode" data-i="{i}" data-links="{links}" '
-            f'style="--x:{d[0]}%;--y:{d[1]}%;--mx:{m[0]}%;--my:{m[1]}%" '
             f'data-title="{h.esc(title)}" data-text="{h.esc(text)}" data-href="{href}" data-link="{h.esc(link)}">'
-            f'<span class="cshape">{h.shp(kind, colour, rot)}</span><span class="clabel">{h.esc(title)}</span></button>'
+            f'<svg class="ill" viewBox="0 0 160 134" aria-hidden="true"><rect width="160" height="134" fill="{bg}"/>{art}</svg>'
+            f'<span class="clabel">{h.esc(title)}</span></button>'
         )
-    for a, b in CONSTELLATION_EDGES:
-        da, db = CONSTELLATION[a][2], CONSTELLATION[b][2]
-        ma, mb = CONSTELLATION[a][3], CONSTELLATION[b][3]
-        lines_d.append(f'<line class="cline" data-a="{a}" data-b="{b}" x1="{da[0]}" y1="{da[1]}" x2="{db[0]}" y2="{db[1]}" vector-effect="non-scaling-stroke"/>')
-        lines_m.append(f'<line class="cline" data-a="{a}" data-b="{b}" x1="{ma[0]}" y1="{ma[1]}" x2="{mb[0]}" y2="{mb[1]}" vector-effect="non-scaling-stroke"/>')
     return f"""
 <section class="sec s-eco slide-over"><div class="wrap">
-  <div class="panel sky slide" data-const>
-    <div class="eco-head">
-      <h2 class="h2" data-kinetic>One ecosystem, four layers.</h2>
-      <p class="handoff">A website captures an enquiry. A lead system keeps track of it. A workflow follows it up.</p>
-    </div>
+  <div class="panel paper slide" data-const>
     <div class="cstage">
-      <svg class="clines d" viewBox="0 0 100 100" preserveAspectRatio="none" aria-hidden="true">{''.join(lines_d)}</svg>
-      <svg class="clines m" viewBox="0 0 100 100" preserveAspectRatio="none" aria-hidden="true">{''.join(lines_m)}</svg>
+      <div class="ccenter">
+        <span class="eco-pill">Four layers &middot; one system</span>
+        <h2 class="h2" data-kinetic>One ecosystem, four layers.</h2>
+        <p class="handoff">A website captures an enquiry. A lead system keeps track of it. A workflow follows it up.</p>
+        <div class="cdetail" aria-live="polite">
+          <h3>Four layers, one system</h3>
+          <p>Select a card to see what it holds and what it connects to.</p>
+          <a class="link" href="ecosystem.html">How the layers connect {h.ico("arrow")}</a>
+        </div>
+      </div>
       {''.join(nodes)}
-    </div>
-    <div class="cdetail" aria-live="polite">
-      <h3>Four layers, one system</h3>
-      <p>Select a shape to see what it holds and what it connects to.</p>
-      <a class="link" href="ecosystem.html">How the layers connect {h.ico("arrow")}</a>
     </div>
   </div>
 </div></section>"""

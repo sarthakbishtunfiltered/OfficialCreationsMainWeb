@@ -136,30 +136,6 @@
 .s-eco { z-index: 2; }
 @media (min-width: 1000px) { .s-eco { margin-top: -7rem; } }
 .s-eco .panel { box-shadow: 0 -18px 50px -30px rgba(40, 50, 90, .35); }
-.eco-head { display: grid; gap: 1rem 4rem; margin-bottom: clamp(1rem, 3vw, 2rem); }
-.eco-head .h2 { max-width: 12ch; }
-.handoff { color: var(--ink-2); font-size: var(--step-1); line-height: 1.35; max-width: 30ch; margin: 0; }
-@media (min-width: 900px) { .eco-head { grid-template-columns: 1fr 1fr; align-items: end; } }
-.cstage { position: relative; aspect-ratio: 4 / 4.6; max-width: 26rem; margin-inline: auto; }
-@media (min-width: 760px) { .cstage { aspect-ratio: 16 / 7; max-width: none; } }
-.clines { position: absolute; inset: 0; width: 100%; height: 100%; overflow: visible; }
-.clines.m { display: block; } .clines.d { display: none; }
-@media (min-width: 760px) { .clines.m { display: none; } .clines.d { display: block; } }
-.cline { stroke: var(--ink); stroke-opacity: .22; stroke-width: 1.4; stroke-linecap: round; transition: stroke-opacity .3s, stroke-width .3s; }
-.cline.hot { stroke-opacity: .7; stroke-width: 2.2; }
-.cnode { position: absolute; left: var(--mx); top: var(--my); transform: translate(-50%, -50%); background: none; border: 0; padding: .4rem; cursor: pointer; display: grid; justify-items: center; gap: .55rem; color: var(--ink); font: inherit; transition: opacity .3s, transform .4s var(--ease); }
-@media (min-width: 760px) { .cnode { left: var(--x); top: var(--y); } }
-.cshape { display: block; width: clamp(3.8rem, 17vw, 5.2rem); transition: transform .5s var(--ease); }
-@media (min-width: 760px) { .cshape { width: clamp(5rem, 9vw, 7.5rem); } }
-.clabel { font: 700 clamp(.85rem, .8rem + .3vw, 1.05rem) var(--f-display); letter-spacing: -.01em; background: #fff; padding: .35rem .8rem; border-radius: 999px; box-shadow: 0 6px 16px -10px rgba(27, 24, 26, .3); white-space: nowrap; }
-.cnode:hover .cshape, .cnode:focus-visible .cshape { transform: scale(1.1) rotate(-4deg); }
-.cstage.has-sel .cnode { opacity: .42; }
-.cstage.has-sel .cnode.on, .cstage.has-sel .cnode.rel { opacity: 1; }
-.cnode.on .cshape { transform: scale(1.18) rotate(-6deg); }
-.cnode.on .clabel { background: var(--ink); color: var(--cream); }
-.cdetail { margin-top: clamp(1rem, 3vw, 2rem); background: rgba(255, 255, 255, .6); border-radius: 22px; padding: 1.2rem 1.4rem; min-height: 8.5rem; }
-.cdetail h3 { font-size: var(--step-1); margin-bottom: .4rem; }
-.cdetail p { color: var(--ink-2); margin-bottom: .8rem; }
 
 /* ---------- What we do ---------- */
 .pillars2 { display: grid; gap: 1.2rem; margin-top: clamp(1.8rem, 4vw, 3rem); }
@@ -326,4 +302,37 @@
   .s-story .wrap { height: 340vh; }
   .s-eco { margin-top: -70vh; }
   .s-eco.nopin { margin-top: 0; }
+}
+
+
+/* v13: ecosystem as tilted polaroid cards around a centred message */
+.s-eco .panel { background: radial-gradient(circle at 50% 46%, #fff 0, #F6F3FC 70%, #EFEAFA 100%); }
+.cstage { position: relative; display: grid; grid-template-columns: 1fr 1fr; gap: 1.4rem 1rem; max-width: 30rem; margin-inline: auto; }
+.ccenter { grid-column: 1 / -1; text-align: center; display: grid; justify-items: center; }
+.eco-pill { display: inline-block; background: #fff; border: 1.5px solid var(--ink); border-radius: 99px; padding: .4rem 1rem; font: 700 .78rem var(--f-display); letter-spacing: .14em; text-transform: uppercase; margin-bottom: 1rem; }
+.ccenter .h2 { max-width: 12ch; }
+.handoff { color: var(--ink-2); font-size: var(--step-0); line-height: 1.4; max-width: 34ch; margin: 1rem 0 0; }
+.cdetail { margin-top: 1.4rem; max-width: 30rem; min-height: 8.2rem; text-align: center; }
+.cdetail h3 { font-size: var(--step-1); margin-bottom: .4rem; }
+.cdetail p { color: var(--ink-2); margin-bottom: .8rem; }
+.cdetail .link { justify-content: center; }
+.cnode { --r: -3deg; position: relative; display: block; width: 100%; background: #fff; border: 1.5px solid var(--ink); border-radius: 16px; padding: .5rem .5rem .2rem; box-shadow: 5px 5px 0 var(--ink); cursor: pointer; color: var(--ink); font: inherit; text-align: center; transform: rotate(var(--r)); transition: transform .35s var(--ease), box-shadow .3s, opacity .3s; }
+.cnode:nth-of-type(2) { --r: 3deg; } .cnode:nth-of-type(3) { --r: -2.5deg; } .cnode:nth-of-type(4) { --r: 3.5deg; }
+.cnode .ill { display: block; width: 100%; height: auto; border-radius: 10px; border: 1.5px solid var(--ink); }
+.clabel { display: block; font: 700 clamp(.82rem, .78rem + .3vw, 1rem) var(--f-display); letter-spacing: -.01em; padding: .55rem .2rem .45rem; }
+.cnode:hover, .cnode:focus-visible { transform: rotate(0deg) translateY(-5px) scale(1.04); box-shadow: 8px 9px 0 var(--ink); z-index: 3; outline: none; }
+.cnode:focus-visible { outline: 3px solid var(--indigo); outline-offset: 3px; }
+.cstage.has-sel .cnode { opacity: .5; }
+.cstage.has-sel .cnode.on, .cstage.has-sel .cnode.rel { opacity: 1; }
+.cnode.on { transform: rotate(0deg) translateY(-5px) scale(1.05); box-shadow: 8px 9px 0 var(--indigo); z-index: 3; }
+.cnode.rel { box-shadow: 5px 5px 0 var(--indigo); }
+.ill .fi { fill: var(--indigo); } .ill .fc { fill: var(--coral); } .ill .fs { fill: var(--sun); } .ill .fl { fill: var(--leaf); }
+.ill .fw { fill: #fff; } .ill .fk { fill: var(--ink); } .ill .fg { fill: #D9D4E4; } .ill .sk { stroke: var(--ink); stroke-width: 2.5; stroke-linejoin: round; stroke-linecap: round; }
+.ill .ln { fill: none; stroke: var(--ink); stroke-width: 2.5; stroke-linecap: round; stroke-linejoin: round; }
+@media (min-width: 760px) {
+  .cstage { display: block; max-width: none; min-height: clamp(36rem, 46vw, 41rem); }
+  .ccenter { position: absolute; inset: 0; align-content: center; padding-inline: clamp(8rem, 24vw, 21rem); }
+  .cnode { position: absolute; width: clamp(8.6rem, 15vw, 12.4rem); }
+  .cnode:nth-of-type(1) { left: 1%; top: 2%; --r: -8deg; } .cnode:nth-of-type(2) { right: 1%; top: 9%; --r: 7deg; }
+  .cnode:nth-of-type(3) { right: 4%; bottom: 0; --r: -6deg; } .cnode:nth-of-type(4) { left: 3%; bottom: 3%; --r: 6deg; }
 }
