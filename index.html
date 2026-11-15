@@ -5,16 +5,17 @@
 <meta name="viewport" content="width=device-width, initial-scale=1">
 <title>Official Creations | From Offline to Online. Beyond.</title>
 <meta name="description" content="Official Creations builds connected digital and operational foundations that help businesses move online, run better and keep scaling.">
-<meta name="theme-color" content="#EAE4E5">
+<meta name="theme-color" content="#FCF9F2">
 <meta property="og:title" content="Official Creations | From Offline to Online. Beyond.">
 <meta property="og:description" content="Official Creations builds connected digital and operational foundations that help businesses move online, run better and keep scaling.">
 <meta property="og:type" content="website">
 <link rel="icon" type="image/png" href="assets/img/oc-logo-white-on-black.png">
 <link rel="apple-touch-icon" href="assets/img/oc-logo-white-on-black.png">
-<link rel="preconnect" href="https://fonts.googleapis.com"><link rel="preconnect" href="https://fonts.gstatic.com" crossorigin><link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Bricolage+Grotesque:opsz,wght@12..96,700;12..96,800&family=Instrument+Sans:wght@400;500;600;700&display=swap">
+<link rel="preconnect" href="https://fonts.googleapis.com"><link rel="preconnect" href="https://fonts.gstatic.com" crossorigin><link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Bricolage+Grotesque:opsz,wght@12..96,700;12..96,800&family=Instrument+Serif:ital@1&family=Outfit:wght@800&family=Instrument+Sans:wght@400;500;600;700&display=swap">
 <link rel="stylesheet" href="assets/css/oc.css">
+<link rel="stylesheet" href="assets/css/home.css">
 </head>
-<body>
+<body data-page="home">
 <svg width="0" height="0" style="position:absolute" aria-hidden="true" focusable="false"><defs>
 <symbol id="i-site" viewBox="0 0 24 24"><path d="M4 6.5c0-1 .8-2 2-2h12c1.2 0 2 1 2 2v11c0 1-.8 2-2 2H6c-1.2 0-2-1-2-2z"/><path d="M4.2 9.6c5.2.4 10.5.3 15.6-.1"/><path d="M7 7.2h.01M9.4 7.2h.01"/></symbol>
 <symbol id="i-search" viewBox="0 0 24 24"><path d="M10.5 4.5a6 6 0 1 0 .1 12 6 6 0 0 0-.1-12z"/><path d="M15.2 15.4l4.6 4.4"/></symbol>
@@ -27,29 +28,48 @@
 <symbol id="i-loop" viewBox="0 0 24 24"><path d="M19 12a7 7 0 1 1-2.2-5.1"/><path d="M19.2 4.6v3.8h-3.8"/></symbol>
 <symbol id="i-arrow" viewBox="0 0 24 24"><path d="M4 12h15M13.5 6.5L19 12l-5.5 5.5"/></symbol>
 <symbol id="i-chat" viewBox="0 0 24 24"><path d="M4 5h16v11H9l-5 4z"/><path d="M8 9.5h8M8 12.5h5"/></symbol>
+<symbol id="i-cal" viewBox="0 0 24 24"><path d="M4 7.5c0-1 .8-2 2-2h12c1.2 0 2 1 2 2v11c0 1-.8 2-2 2H6c-1.2 0-2-1-2-2z"/><path d="M4.2 10.4h15.6M8 3.8v3M16 3.8v3"/></symbol>
+<symbol id="i-clock" viewBox="0 0 24 24"><path d="M12 4.5a7.5 7.5 0 1 0 .1 15 7.5 7.5 0 0 0-.1-15z"/><path d="M12 8.2V12l2.8 1.8"/></symbol>
+<symbol id="i-close" viewBox="0 0 24 24"><path d="M6 6l12 12M18 6L6 18"/></symbol>
+<filter id="grain" x="0" y="0" width="100%" height="100%" color-interpolation-filters="sRGB"><feTurbulence type="fractalNoise" baseFrequency=".9" numOctaves="2" seed="7" result="n"/><feColorMatrix in="n" type="matrix" values="0 0 0 0 1  0 0 0 0 1  0 0 0 0 1  0 0 0 3.4 -1.62" result="light"/><feComposite in="light" in2="SourceAlpha" operator="in" result="lit"/><feColorMatrix in="n" type="matrix" values="0 0 0 0 0  0 0 0 0 0  0 0 0 0 0  0 0 0 -3.4 1.7" result="dark"/><feComposite in="dark" in2="SourceAlpha" operator="in" result="dk"/><feComponentTransfer in="dk" result="dk2"><feFuncA type="linear" slope=".32"/></feComponentTransfer><feComponentTransfer in="lit" result="lit2"><feFuncA type="linear" slope=".55"/></feComponentTransfer><feMerge><feMergeNode in="SourceGraphic"/><feMergeNode in="dk2"/><feMergeNode in="lit2"/></feMerge></filter>
 </defs></svg>
 <a class="skip" href="#main">Skip to content</a>
 <header class="nav">
   <div class="nav-bar">
     <a class="logo" href="index.html" aria-label="Official Creations, home"><img src="assets/img/oc-logo.png" alt="" width="280" height="336"><small>Official Creations</small></a>
-    <button class="nav-toggle" type="button" aria-expanded="false" aria-controls="nav-links" aria-label="Open menu"><span></span><span></span></button>
+    <div class="nav-right">
+      <a class="nav-book" href="book.html" data-book>Book</a>
+      <button class="nav-toggle" type="button" aria-expanded="false" aria-controls="nav-links" aria-label="Open menu"><span></span><span></span></button>
+    </div>
     <nav id="nav-links" class="nav-links" aria-label="Main">
       <a href="index.html" aria-current="page">Home</a><a href="ecosystem.html">Our Ecosystem</a><a href="digital-presence.html">Digital Presence</a><a href="business-operations.html">Business Operations</a><a href="products.html">Products</a><a href="about.html">About</a>
-      <a class="nav-cta" href="book.html">Book a Consultation</a>
+      <a class="nav-chat" href="https://wa.me/919711925052" target="_blank" rel="noopener" aria-label="Chat on WhatsApp"><svg class="ico" aria-hidden="true"><use href="#i-chat"/></svg><span>Chat</span></a>
+      <a class="nav-cta" href="book.html" data-book>Book a Consultation</a>
     </nav>
   </div>
 </header>
 <main id="main">
 
-<section class="hero"><div class="wrap hero-grid">
-  <div>
+<section class="h-hero">
+  <div class="h-shapes" aria-hidden="true"><svg class="dash" viewBox="0 0 100 100" preserveAspectRatio="none" aria-hidden="true"><path d="M-4 84C14 104 34 82 52 66S88 38 104 60" vector-effect="non-scaling-stroke"/></svg><div class="par b-blue" data-par="0.06"><svg class="blob" viewBox="0 0 400 400" aria-hidden="true"><defs><clipPath id="cb"><path d="M20 120C60 40 190 20 300 80C390 130 410 230 340 300C270 370 150 380 80 330C10 280 -20 190 20 120Z"/></clipPath></defs><g><path d="M20 120C60 40 190 20 300 80C390 130 410 230 340 300C270 370 150 380 80 330C10 280 -20 190 20 120Z" fill="#2F55DB"/><g clip-path="url(#cb)"><path d="M20 120C60 40 190 20 300 80C390 130 410 230 340 300C270 370 150 380 80 330C10 280 -20 190 20 120Z" transform="translate(200 200) scale(0.92) translate(-200 -200)" fill="none" stroke="#fff" stroke-opacity=".28" stroke-width="1.2"/><path d="M20 120C60 40 190 20 300 80C390 130 410 230 340 300C270 370 150 380 80 330C10 280 -20 190 20 120Z" transform="translate(200 200) scale(0.84) translate(-200 -200)" fill="none" stroke="#fff" stroke-opacity=".28" stroke-width="1.2"/><path d="M20 120C60 40 190 20 300 80C390 130 410 230 340 300C270 370 150 380 80 330C10 280 -20 190 20 120Z" transform="translate(200 200) scale(0.76) translate(-200 -200)" fill="none" stroke="#fff" stroke-opacity=".28" stroke-width="1.2"/><path d="M20 120C60 40 190 20 300 80C390 130 410 230 340 300C270 370 150 380 80 330C10 280 -20 190 20 120Z" transform="translate(200 200) scale(0.68) translate(-200 -200)" fill="none" stroke="#fff" stroke-opacity=".28" stroke-width="1.2"/><path d="M20 120C60 40 190 20 300 80C390 130 410 230 340 300C270 370 150 380 80 330C10 280 -20 190 20 120Z" transform="translate(200 200) scale(0.6) translate(-200 -200)" fill="none" stroke="#fff" stroke-opacity=".28" stroke-width="1.2"/><path d="M20 120C60 40 190 20 300 80C390 130 410 230 340 300C270 370 150 380 80 330C10 280 -20 190 20 120Z" transform="translate(200 200) scale(0.52) translate(-200 -200)" fill="none" stroke="#fff" stroke-opacity=".28" stroke-width="1.2"/><circle cx="70" cy="270" r="95" fill="#80E5F2"/></g></g></svg></div><div class="par b-yellow" data-par="0.1"><svg class="blob" viewBox="0 0 400 400" aria-hidden="true"><defs><clipPath id="cy"><path d="M30 190C20 100 120 30 230 40C330 50 400 130 380 230C360 330 260 390 160 370C80 350 40 280 30 190Z"/></clipPath><pattern id="dy" width="16" height="16" patternUnits="userSpaceOnUse"><circle cx="8" cy="8" r="2.6" fill="#fff"/></pattern></defs><g><path d="M30 190C20 100 120 30 230 40C330 50 400 130 380 230C360 330 260 390 160 370C80 350 40 280 30 190Z" fill="#FFD91A"/><g clip-path="url(#cy)"><circle cx="360" cy="40" r="110" fill="#FFF1B8"/><circle cx="210" cy="215" r="105" fill="url(#dy)" opacity=".95"/></g></g></svg></div><div class="par b-orange" data-par="0.05"><svg class="blob" viewBox="0 0 400 400" aria-hidden="true"><defs><clipPath id="co"><path d="M10 200C10 100 100 20 210 20C320 20 400 100 400 210C400 330 300 400 190 400C90 400 10 320 10 200Z"/></clipPath><pattern id="do" width="20" height="20" patternUnits="userSpaceOnUse"><circle cx="10" cy="10" r="3" fill="#fff"/></pattern></defs><g><path d="M10 200C10 100 100 20 210 20C320 20 400 100 400 210C400 330 300 400 190 400C90 400 10 320 10 200Z" fill="#FF7B4B"/><g clip-path="url(#co)"><rect x="30" y="30" width="170" height="130" fill="url(#do)"/></g></g></svg></div></div>
+  <div class="wrap h-in">
     <h1><span class="ln"><span>From Offline</span></span><span class="ln"><span>to Online.</span></span><span class="ln"><span>Beyond.</span></span></h1>
-    <div class="hero-copy">
-      <p class="lede">Official Creations builds the digital and operational foundations that help businesses move online, run better and keep scaling.</p>
-      <div class="cta-row"><a class="btn" href="book.html"><span>Book a Consultation</span><svg class="ico" aria-hidden="true"><use href="#i-arrow"/></svg></a><a class="btn ghost" href="ecosystem.html"><span>Explore Our Ecosystem</span><svg class="ico" aria-hidden="true"><use href="#i-arrow"/></svg></a></div>
+    <p class="h-pill">The OC ecosystem</p>
+    <p class="lede">Official Creations builds the digital and operational foundations that help businesses move online, run better and keep scaling.</p>
+    <div class="cta-row"><a class="btn" href="book.html" data-book><span>Book a Consultation</span><svg class="ico" aria-hidden="true"><use href="#i-arrow"/></svg></a><a class="btn ghost" href="ecosystem.html"><span>Explore Our Ecosystem</span><svg class="ico" aria-hidden="true"><use href="#i-arrow"/></svg></a></div>
+    <div class="h-stage">
+      <div class="dev d-left"><div class="mb">
+    <div class="mb-bar"><i class="d1"></i><i class="d2"></i><i class="d3"></i><b>yourbusiness.com</b></div>
+    <div class="mb-body">
+      <div class="mb-nav"><span class="logo-b"></span><span></span><span></span><span></span></div>
+      <div class="mb-hero">
+        <div class="mb-text"><p class="t1"></p><p class="t2"></p><p class="t3"></p><span class="mb-btn"></span></div>
+        <div class="mb-art"><svg class="shp " viewBox="0 0 100 100" aria-hidden="true" focusable="false" style="color:var(--indigo);transform:rotate(0deg)"><circle cx="50" cy="50" r="50"/></svg></div>
+      </div>
+      <div class="mb-cards"><i></i><i></i><i></i></div>
     </div>
-  </div>
-  <div class="map" data-map>
+  </div><a class="hot" href="digital-presence.html" aria-label="Digital Presence"><span aria-hidden="true">+</span><em>Digital Presence</em></a></div>
+      <div class="h-card"><div class="map" data-map>
   <svg viewBox="0 0 600 460" role="group" aria-label="Official Creations ecosystem: four connected layers around a shared centre">
     <path class="link-line cross" d="M105 70 L495 70"/><path class="link-line cross" d="M495 70 L495 390"/><path class="link-line cross" d="M495 390 L105 390"/><path class="link-line cross" d="M105 390 L105 70"/><path class="link-line" d="M300 230 Q190 150 105 70"/><path class="link-line" d="M300 230 Q409 150 495 70"/><path class="link-line" d="M300 230 Q409 310 495 390"/><path class="link-line" d="M300 230 Q190 310 105 390"/>
     <g class="hub"><circle cx="300" cy="230" r="52"/><image href="assets/img/oc-mark-white.png" x="276.85" y="202" width="46.3" height="56" aria-hidden="true"/></g>
@@ -61,147 +81,193 @@
     <a class="link" href="ecosystem.html">Open the ecosystem <svg class="ico" aria-hidden="true"><use href="#i-arrow"/></svg></a>
   </div>
   <p class="map-hint">Hover, focus or tap a layer to explore it.</p>
-</div>
+</div></div>
+      <div class="dev d-right"><div class="flow">
+    <div class="fnode"><span class="fdot coral"></span><b>Enquiry</b><span class="fbar"></span></div>
+    <span class="fline"></span>
+    <div class="fnode wide"><b>Lead list</b><div class="frows"><span></span><span></span><span></span></div></div>
+    <span class="fline"></span>
+    <div class="fnode"><span class="fdot leaf"></span><b>Follow-up</b><span class="fbar"></span></div>
+  </div><a class="hot" href="business-operations.html" aria-label="Business Operations"><span aria-hidden="true">+</span><em>Business Operations</em></a></div>
+    </div>
+  </div>
+</section>
+<section class="sec s-story"><div class="wrap">
+  <div class="panel lav story" data-story>
+    <div class="story-grid">
+      <div class="story-text">
+        <h2 class="h2" data-kinetic>A website is where it starts. It isn't where it ends.</h2>
+        <p>Most businesses collect tools one at a time: a site here, a spreadsheet there, a social account nobody has time for. Each piece works alone. Together, they don't.</p>
+        <p>OC designs them as one system, so what you build today still fits what you need next year.</p>
+      </div>
+      <div class="story-scene">
+        <svg class="story-svg" viewBox="0 0 400 320" role="img" aria-label="A shopfront turning into a website as you scroll"><g class="mph" style="--x0:60;--y0:120;--tx:-20;--ty:-60;--sx:1.1429;--sy:1.3529"><rect width="280" height="170" class="f-butter"/><rect class="mphb f-white" width="280" height="170"/></g><g class="mph" style="--x0:50;--y0:70;--tx:-10;--ty:-10;--sx:1.0667;--sy:0.72"><rect width="300" height="50" class="f-coral"/><rect class="mphb f-indigo" width="300" height="50"/></g><g class="mph" style="--x0:130;--y0:28;--tx:-30;--ty:42;--sx:1.4286;--sy:0.5333"><rect width="140" height="30" class="f-ink"/><rect class="mphb f-white" width="140" height="30"/></g><g class="mph" style="--x0:100;--y0:190;--tx:-30;--ty:46;--sx:1.6667;--sy:0.32"><rect width="60" height="100" class="f-indigo"/><rect class="mphb f-coral" width="60" height="100"/></g><g class="mph" style="--x0:190;--y0:160;--tx:20;--ty:-44;--sx:1.0833;--sy:1.375"><rect width="120" height="80" class="f-sky"/><rect class="mphb f-lav" width="120" height="80"/></g><g class="off-only"><rect x="50" y="70" width="25" height="50" class="f-white" opacity=".3"/><rect x="100" y="70" width="25" height="50" class="f-white" opacity=".3"/><rect x="150" y="70" width="25" height="50" class="f-white" opacity=".3"/><rect x="200" y="70" width="25" height="50" class="f-white" opacity=".3"/><rect x="250" y="70" width="25" height="50" class="f-white" opacity=".3"/><rect x="300" y="70" width="25" height="50" class="f-white" opacity=".3"/><text x="200" y="49" text-anchor="middle" class="sign-t">OPEN</text><circle cx="148" cy="244" r="4" class="f-sun"/><path d="M250 160V240M190 200H310" stroke="#fff" stroke-width="2" opacity=".7" fill="none"/></g><g class="on-only"><circle cx="56" cy="78" r="4" class="f-coral"/><circle cx="70" cy="78" r="4" class="f-sun"/><circle cx="84" cy="78" r="4" class="f-leaf"/><rect x="60" y="118" width="120" height="14" rx="3" class="f-ink"/><rect x="60" y="142" width="100" height="8" rx="3" class="f-ink" opacity=".22"/><rect x="60" y="158" width="80" height="8" rx="3" class="f-ink" opacity=".22"/><rect x="190" y="240" width="50" height="36" rx="6" class="f-lav"/><rect x="248" y="240" width="50" height="36" rx="6" class="f-mint"/><rect x="306" y="240" width="40" height="36" rx="6" class="f-blush"/></g></svg>
+        <div class="story-labels" aria-hidden="true"><span class="off">Offline</span><span class="on">Online</span></div>
+      </div>
+    </div>
+  </div>
 </div></section>
-
-<section class="section dark"><svg class="edge top" viewBox="0 0 1440 60" preserveAspectRatio="none" aria-hidden="true"><path d="M0 34C120 8 260 56 420 30S720 4 900 32s300 22 540-10V60H0z"/></svg>
-  <div class="wrap intro">
-    <h2 class="h2">A website is where it starts. It isn't where it ends.</h2>
-    <div class="body">
-      <p>Most businesses collect tools one at a time: a site here, a spreadsheet there, a social account nobody has time for. Each piece works alone. Together, they don't.</p>
-      <p>OC designs them as one system, so what you build today still fits what you need next year.</p>
+<section class="sec s-eco slide-over"><div class="wrap">
+  <div class="panel sky slide" data-const>
+    <div class="eco-head">
+      <h2 class="h2" data-kinetic>One ecosystem, four layers.</h2>
+      <p class="handoff">A website captures an enquiry. A lead system keeps track of it. A workflow follows it up.</p>
+    </div>
+    <div class="cstage">
+      <svg class="clines d" viewBox="0 0 100 100" preserveAspectRatio="none" aria-hidden="true"><line class="cline" data-a="0" data-b="1" x1="16" y1="32" x2="60" y2="20" vector-effect="non-scaling-stroke"/><line class="cline" data-a="1" data-b="3" x1="60" y1="20" x2="34" y2="78" vector-effect="non-scaling-stroke"/><line class="cline" data-a="3" data-b="2" x1="34" y1="78" x2="82" y2="72" vector-effect="non-scaling-stroke"/><line class="cline" data-a="1" data-b="2" x1="60" y1="20" x2="82" y2="72" vector-effect="non-scaling-stroke"/></svg>
+      <svg class="clines m" viewBox="0 0 100 100" preserveAspectRatio="none" aria-hidden="true"><line class="cline" data-a="0" data-b="1" x1="26" y1="14" x2="72" y2="34" vector-effect="non-scaling-stroke"/><line class="cline" data-a="1" data-b="3" x1="72" y1="34" x2="30" y2="60" vector-effect="non-scaling-stroke"/><line class="cline" data-a="3" data-b="2" x1="30" y1="60" x2="70" y2="84" vector-effect="non-scaling-stroke"/><line class="cline" data-a="1" data-b="2" x1="72" y1="34" x2="70" y2="84" vector-effect="non-scaling-stroke"/></svg>
+      <button type="button" class="cnode" data-i="0" data-links="1" style="--x:16%;--y:32%;--mx:26%;--my:14%" data-title="Digital Presence" data-text="How people find, judge and contact your business." data-href="digital-presence.html" data-link="See Digital Presence"><span class="cshape"><svg class="shp " viewBox="0 0 100 100" aria-hidden="true" focusable="false" style="color:var(--indigo);transform:rotate(0deg)"><path d="M0 100V0A100 100 0 0 1 100 100Z"/></svg></span><span class="clabel">Digital Presence</span></button><button type="button" class="cnode" data-i="1" data-links="0,3,2" style="--x:60%;--y:20%;--mx:72%;--my:34%" data-title="Business Operations" data-text="How the work gets done behind the scenes, with connected systems." data-href="business-operations.html" data-link="See Business Operations"><span class="cshape"><svg class="shp " viewBox="0 0 100 100" aria-hidden="true" focusable="false" style="color:var(--coral);transform:rotate(0deg)"><circle cx="50" cy="50" r="50"/></svg></span><span class="clabel">Business Operations</span></button><button type="button" class="cnode" data-i="2" data-links="3,1" style="--x:82%;--y:72%;--mx:70%;--my:84%" data-title="Products" data-text="Software and SaaS products shaped around real business problems." data-href="products.html" data-link="See Products"><span class="cshape"><svg class="shp " viewBox="0 0 100 100" aria-hidden="true" focusable="false" style="color:var(--sun);transform:rotate(0deg)"><path d="M50 0L100 50L50 100L0 50Z"/></svg></span><span class="clabel">Products</span></button><button type="button" class="cnode" data-i="3" data-links="1,2" style="--x:34%;--y:78%;--mx:30%;--my:60%" data-title="Internal tools" data-text="The automation systems OC builds and runs itself, and builds on." data-href="products.html#internal" data-link="See the systems"><span class="cshape"><svg class="shp " viewBox="0 0 200 100" aria-hidden="true" focusable="false" style="color:var(--leaf);transform:rotate(0deg)"><path d="M0 100A100 100 0 0 1 200 100Z"/></svg></span><span class="clabel">Internal tools</span></button>
+    </div>
+    <div class="cdetail" aria-live="polite">
+      <h3>Four layers, one system</h3>
+      <p>Select a shape to see what it holds and what it connects to.</p>
+      <a class="link" href="ecosystem.html">How the layers connect <svg class="ico" aria-hidden="true"><use href="#i-arrow"/></svg></a>
     </div>
   </div>
-</section>
-
-<section class="section dark" style="padding-top:0">
-  <div class="wrap">
-    <h2 class="h2">One ecosystem, four layers.</h2>
-    <ul class="thread">
-      <li><h3>Digital Presence</h3><p>How people find and trust you.</p></li>
-      <li><h3>Business Operations</h3><p>How the work gets done behind the scenes.</p></li>
-      <li><h3>Products</h3><p>Software and SaaS built around real business problems.</p></li>
-      <li><h3>Internal tools</h3><p>The automation systems OC runs itself.</p></li>
-    </ul>
-    <p class="handoff">A website captures an enquiry. A lead system keeps track of it. A workflow follows it up.</p>
-    <p style="margin-top:2rem"><a class="link" href="ecosystem.html">How the layers connect <svg class="ico" aria-hidden="true"><use href="#i-arrow"/></svg></a></p>
-  </div>
-  <svg class="edge bottom" viewBox="0 0 1440 60" preserveAspectRatio="none" aria-hidden="true"><path d="M0 34C120 8 260 56 420 30S720 4 900 32s300 22 540-10V60H0z"/></svg>
-</section>
-
-<section class="section" id="what-we-do">
-  <div class="wrap">
-    <h2 class="h2" style="max-width:16ch">Two pillars. One foundation.</h2>
-    <div class="pillars">
-      <a class="pillar p1" href="digital-presence.html">
-        <svg class="ico big" aria-hidden="true"><use href="#i-site"/></svg>
-        <h3>Digital Presence</h3>
-        <p>Help your business be found, understood and trusted online.</p>
-        <ul>
-          <li class="lead"><svg class="ico" aria-hidden="true"><use href="#i-site"/></svg>Website design and development</li>
-          <li><svg class="ico" aria-hidden="true"><use href="#i-search"/></svg>Search engine optimisation</li>
-          <li><svg class="ico" aria-hidden="true"><use href="#i-identity"/></svg>Digital identity</li>
-          <li><svg class="ico" aria-hidden="true"><use href="#i-eye"/></svg>Online visibility</li>
-          <li><svg class="ico" aria-hidden="true"><use href="#i-social"/></svg>Social media management</li>
-        </ul>
-        <span class="link">Explore Digital Presence <svg class="ico" aria-hidden="true"><use href="#i-arrow"/></svg></span>
-      </a>
-      <a class="pillar p2" href="business-operations.html">
-        <svg class="ico big" aria-hidden="true"><use href="#i-system"/></svg>
-        <h3>Business Operations</h3>
-        <p>Run the business on connected systems instead of scattered tools.</p>
-        <ul>
-          <li><svg class="ico" aria-hidden="true"><use href="#i-flow"/></svg>Workflow automation</li>
-          <li><svg class="ico" aria-hidden="true"><use href="#i-system"/></svg>Custom business management systems</li>
-          <li><svg class="ico" aria-hidden="true"><use href="#i-funnel"/></svg>Lead generation and management</li>
-          <li><svg class="ico" aria-hidden="true"><use href="#i-loop"/></svg>Operational process optimisation</li>
-        </ul>
-        <span class="link">Explore Business Operations <svg class="ico" aria-hidden="true"><use href="#i-arrow"/></svg></span>
-      </a>
+</div></section>
+<section class="sec" id="what-we-do"><div class="wrap">
+  <h2 class="h2" data-kinetic style="max-width:16ch">Two pillars. One foundation.</h2>
+  <div class="pillars2">
+    <article class="spanel lav tilt-l">
+      <div class="sp-text"><h3>Digital Presence</h3><p>Help your business be found, understood and trusted online.</p></div>
+      <div class="scene sc-dp" aria-hidden="true"><div class="mb">
+    <div class="mb-bar"><i class="d1"></i><i class="d2"></i><i class="d3"></i><b>yourbusiness.com</b></div>
+    <div class="mb-body">
+      <div class="mb-nav"><span class="logo-b"></span><span></span><span></span><span></span></div>
+      <div class="mb-hero">
+        <div class="mb-text"><p class="t1"></p><p class="t2"></p><p class="t3"></p><span class="mb-btn"></span></div>
+        <div class="mb-art"><svg class="shp " viewBox="0 0 100 100" aria-hidden="true" focusable="false" style="color:var(--indigo);transform:rotate(0deg)"><circle cx="50" cy="50" r="50"/></svg></div>
+      </div>
+      <div class="mb-cards"><i></i><i></i><i></i></div>
     </div>
   </div>
-</section>
-
-<section class="section dark"><svg class="edge top" viewBox="0 0 1440 60" preserveAspectRatio="none" aria-hidden="true"><path d="M0 34C120 8 260 56 420 30S720 4 900 32s300 22 540-10V60H0z"/></svg>
-  <div class="wrap">
-    <h2 class="h2" style="max-width:18ch">We understand the business before we build anything.</h2>
-    <div class="approach">
-      <div class="step"><span class="dot">1</span><div><h3>Discover</h3><p>We start with how your business earns, where it's stuck and what your customers actually do.</p></div></div>
-      <div class="step"><span class="dot">2</span><div><h3>Strategise</h3><p>We decide what to fix first, what can wait, and how the pieces will connect.</p></div></div>
-      <div class="step"><span class="dot">3</span><div><h3>Build</h3><p>We build in working stages, so you see progress along the way.</p></div></div>
-      <div class="step"><span class="dot">4</span><div><h3>Evolve</h3><p>As your business changes, the foundations change with it.</p></div></div>
+  <div class="chip k1"><svg class="ico" aria-hidden="true"><use href="#i-site"/></svg><span>Website design</span></div>
+  <div class="chip k2"><svg class="ico" aria-hidden="true"><use href="#i-search"/></svg><span>Search</span></div>
+</div>
+      <ul class="caps2"><li class="main"><svg class="ico" aria-hidden="true"><use href="#i-site"/></svg><span>Website design and development</span></li><li class=""><svg class="ico" aria-hidden="true"><use href="#i-search"/></svg><span>Search engine optimisation</span></li><li class=""><svg class="ico" aria-hidden="true"><use href="#i-identity"/></svg><span>Digital identity</span></li><li class=""><svg class="ico" aria-hidden="true"><use href="#i-eye"/></svg><span>Online visibility</span></li><li class=""><svg class="ico" aria-hidden="true"><use href="#i-social"/></svg><span>Social media management</span></li></ul>
+      <a class="link stretch" href="digital-presence.html">Explore Digital Presence <svg class="ico" aria-hidden="true"><use href="#i-arrow"/></svg></a>
+    </article>
+    <article class="spanel mint tilt-r">
+      <div class="sp-text"><h3>Business Operations</h3><p>Run the business on connected systems instead of scattered tools.</p></div>
+      <div class="scene sc-bo" aria-hidden="true"><div class="flow">
+    <div class="fnode"><span class="fdot coral"></span><b>Enquiry</b><span class="fbar"></span></div>
+    <span class="fline"></span>
+    <div class="fnode wide"><b>Lead list</b><div class="frows"><span></span><span></span><span></span></div></div>
+    <span class="fline"></span>
+    <div class="fnode"><span class="fdot leaf"></span><b>Follow-up</b><span class="fbar"></span></div>
+  </div>
+  <div class="chip k1"><svg class="ico" aria-hidden="true"><use href="#i-flow"/></svg><span>Workflow</span></div>
+  <div class="chip k2"><svg class="ico" aria-hidden="true"><use href="#i-funnel"/></svg><span>Lead system</span></div>
+</div>
+      <ul class="caps2"><li class="main"><svg class="ico" aria-hidden="true"><use href="#i-flow"/></svg><span>Workflow automation</span></li><li class=""><svg class="ico" aria-hidden="true"><use href="#i-system"/></svg><span>Custom business management systems</span></li><li class=""><svg class="ico" aria-hidden="true"><use href="#i-funnel"/></svg><span>Lead generation and management</span></li><li class=""><svg class="ico" aria-hidden="true"><use href="#i-loop"/></svg><span>Operational process optimisation</span></li></ul>
+      <a class="link stretch" href="business-operations.html">Explore Business Operations <svg class="ico" aria-hidden="true"><use href="#i-arrow"/></svg></a>
+    </article>
+  </div>
+</div></section>
+<section class="sec"><div class="wrap">
+  <div class="panel butter">
+    <h2 class="h2" data-kinetic style="max-width:18ch">We understand the business before we build anything.</h2>
+    <div class="ppath" data-draw>
+      <div class="pcol" aria-hidden="true">
+        <svg viewBox="0 0 100 100" preserveAspectRatio="none">
+          <defs><clipPath id="ppclip" clipPathUnits="userSpaceOnUse"><rect class="pclip" x="-5" y="-1" width="110" height="102"/></clipPath></defs>
+          <path class="pp-base" d="M50 0C50 6 50 8 50 12.5C50 24 24 26 24 37.5C24 50 76 50 76 62.5C76 75 30 75 30 87.5C30 95 50 96 50 100" vector-effect="non-scaling-stroke"/>
+          <path class="pp" clip-path="url(#ppclip)" d="M50 0C50 6 50 8 50 12.5C50 24 24 26 24 37.5C24 50 76 50 76 62.5C76 75 30 75 30 87.5C30 95 50 96 50 100" vector-effect="non-scaling-stroke"/>
+        </svg>
+        <span class="pstop" style="--x:50%;--y:12.5%"><svg class="shp " viewBox="0 0 100 100" aria-hidden="true" focusable="false" style="color:var(--coral);transform:rotate(0deg)"><circle cx="50" cy="50" r="50"/></svg></span><span class="pstop" style="--x:24%;--y:37.5%"><svg class="shp " viewBox="0 0 100 100" aria-hidden="true" focusable="false" style="color:var(--sun);transform:rotate(0deg)"><path d="M50 0L100 50L50 100L0 50Z"/></svg></span><span class="pstop" style="--x:76%;--y:62.5%"><svg class="shp " viewBox="0 0 200 100" aria-hidden="true" focusable="false" style="color:var(--leaf);transform:rotate(0deg)"><path d="M0 100A100 100 0 0 1 200 100Z"/></svg></span><span class="pstop" style="--x:30%;--y:87.5%"><svg class="shp " viewBox="0 0 100 100" aria-hidden="true" focusable="false" style="color:var(--indigo);transform:rotate(0deg)"><path d="M0 0H100L0 100Z"/></svg></span>
+      </div>
+      <div class="pstep"><div class="pstep-in"><h3>Discover</h3><p>We start with how your business earns, where it's stuck and what your customers actually do.</p></div></div><div class="pstep"><div class="pstep-in"><h3>Strategise</h3><p>We decide what to fix first, what can wait, and how the pieces will connect.</p></div></div><div class="pstep"><div class="pstep-in"><h3>Build</h3><p>We build in working stages, so you see progress along the way.</p></div></div><div class="pstep"><div class="pstep-in"><h3>Evolve</h3><p>As your business changes, the foundations change with it.</p></div></div>
     </div>
   </div>
-  <svg class="edge bottom" viewBox="0 0 1440 60" preserveAspectRatio="none" aria-hidden="true"><path d="M0 34C120 8 260 56 420 30S720 4 900 32s300 22 540-10V60H0z"/></svg>
-</section>
-
-<section class="section">
-  <div class="wrap">
-    <h2 class="h2">Selected work</h2>
-    <p class="lede" style="margin-top:1.2rem">The systems we've built and are building. Real work, labelled honestly.</p>
-    <div class="rows"><div class="row"><h3>Lead Automation</h3><p>A Python backend that captures and organises leads in Google Sheets. A dashboard is being built on top of it.</p><span class="tag">Internal system</span></div><div class="row"><h3>Social Multi-post Automation</h3><p>Publishes scheduled posts from Google Sheets and Drive to several social platforms from one place.</p><span class="tag">Internal system</span></div><div class="row"><h3>Website Generator</h3><p>Produces websites for set business niches from submitted business details, in Simple and Premium designs.</p><span class="tag">Internal system</span></div></div>
-    <p class="note">More will appear here as projects are ready to share.</p>
+</div></section>
+<section class="sec"><div class="wrap">
+  <h2 class="h2" data-kinetic>Selected work</h2>
+  <p class="lede" style="margin-top:1.2rem">The systems we've built and are building. Real work, labelled honestly.</p>
+  <div class="work2"><article class="wtile lav w1"><div class="pv pv-leads" aria-hidden="true"><div class="pv-head"><span></span><b></b></div><div class="lr"><i></i><span></span><span class="s"></span><b></b></div><div class="lr"><i></i><span></span><span class="s"></span><b></b></div><div class="lr"><i></i><span></span><span class="s"></span><b></b></div><div class="lr"><i></i><span></span><span class="s"></span><b></b></div></div><div class="wt-text"><span class="tag">Internal system</span><h3>Lead Automation</h3><p>A Python backend that captures and organises leads in Google Sheets. A dashboard is being built on top of it.</p></div></article><article class="wtile mint w2"><div class="pv pv-social" aria-hidden="true"><div class="pv-head"><span></span><b></b></div><div class="cal"><span class="cell"></span><span class="cell"></span><span class="cell has"><i class=c-coral></i></span><span class="cell"></span><span class="cell"></span><span class="cell has"><i class=c-indigo></i></span><span class="cell"></span><span class="cell"></span><span class="cell"></span><span class="cell has"><i class=c-leaf></i></span><span class="cell"></span><span class="cell"></span><span class="cell has"><i class=c-sun></i></span><span class="cell"></span><span class="cell"></span><span class="cell"></span><span class="cell has"><i class=c-coral></i></span><span class="cell"></span><span class="cell"></span><span class="cell has"><i class=c-indigo></i></span><span class="cell"></span></div></div><div class="wt-text"><span class="tag">Internal system</span><h3>Social Multi-post Automation</h3><p>Publishes scheduled posts from Google Sheets and Drive to several social platforms from one place.</p></div></article><article class="wtile blush w3"><div class="pv pv-site" aria-hidden="true"><div class="pg a"><div class="bar"></div><div class="blk"></div><div class="ln"></div><div class="ln s"></div></div><div class="pg b"><div class="bar"></div><div class="blk"></div><div class="ln"></div><div class="ln s"></div></div><span class="tag-s">Simple</span><span class="tag-p">Premium</span></div><div class="wt-text"><span class="tag">Internal system</span><h3>Website Generator</h3><p>Produces websites for set business niches from submitted business details, in Simple and Premium designs.</p></div></article></div>
+  <p class="note">The previews are illustrations, not screenshots. More will appear here as projects are ready to share. <a class="link" href="products.html">See Products <svg class="ico" aria-hidden="true"><use href="#i-arrow"/></svg></a></p>
+</div></section>
+<section class="sec"><div class="wrap">
+  <div class="panel blush">
+    <div aria-hidden="true"><div class="par " style="left:-1.4rem;bottom:-1.4rem;width:clamp(3.4rem,7vw,6.5rem)"><svg class="shp " viewBox="0 0 100 100" aria-hidden="true" focusable="false" style="color:var(--coral);transform:rotate(0deg)"><path d="M0 100V0A100 100 0 0 1 100 100Z"/></svg></div></div>
+    <h2 class="h2" data-kinetic>Why OC</h2>
+    <div class="why2"><div class="why-i"><span class="why-ico"><svg class="ico" aria-hidden="true"><use href="#i-chat"/></svg></span><h3>Business-first</h3><p>We ask before we recommend. Sometimes the right answer is a simpler site, not a bigger system.</p></div><div class="why-i"><span class="why-ico"><svg class="ico" aria-hidden="true"><use href="#i-loop"/></svg></span><h3>Scalability-first</h3><p>We choose foundations that can grow, so growth doesn't mean starting over.</p></div><div class="why-i"><span class="why-ico"><svg class="ico" aria-hidden="true"><use href="#i-system"/></svg></span><h3>Connected solutions</h3><p>Your site, leads and workflows share information instead of living in separate places.</p></div><div class="why-i"><span class="why-ico"><svg class="ico" aria-hidden="true"><use href="#i-eye"/></svg></span><h3>Long-term partnership</h3><p>The first project is the start of a working relationship, not the end of one.</p></div></div>
   </div>
-</section>
-
-<section class="section dark"><svg class="edge top" viewBox="0 0 1440 60" preserveAspectRatio="none" aria-hidden="true"><path d="M0 34C120 8 260 56 420 30S720 4 900 32s300 22 540-10V60H0z"/></svg>
-  <div class="wrap">
-    <h2 class="h2">Why OC</h2>
-    <div class="why">
-      <div><svg class="ico" aria-hidden="true"><use href="#i-chat"/></svg><h3>Business-first</h3><p>We ask before we recommend. Sometimes the right answer is a simpler site, not a bigger system.</p></div>
-      <div><svg class="ico" aria-hidden="true"><use href="#i-loop"/></svg><h3>Scalability-first</h3><p>We choose foundations that can grow, so growth doesn't mean starting over.</p></div>
-      <div><svg class="ico" aria-hidden="true"><use href="#i-system"/></svg><h3>Connected solutions</h3><p>Your site, leads and workflows share information instead of living in separate places.</p></div>
-      <div><svg class="ico" aria-hidden="true"><use href="#i-eye"/></svg><h3>Long-term partnership</h3><p>The first project is the start of a working relationship, not the end of one.</p></div>
-    </div>
+</div></section>
+<section class="sec"><div class="wrap split">
+  <div>
+    <h2 class="h2" data-kinetic>About OC</h2>
+    
   </div>
-  <svg class="edge bottom" viewBox="0 0 1440 60" preserveAspectRatio="none" aria-hidden="true"><path d="M0 34C120 8 260 56 420 30S720 4 900 32s300 22 540-10V60H0z"/></svg>
-</section>
-
-<section class="section">
-  <div class="wrap split">
-    <div>
-      <h2 class="h2">About OC</h2>
+  <div>
+    <p class="lede">OC is a growing technology company working with businesses that are moving from traditional operations to digital ones.</p>
+    <p>We're building toward a single partner that can solve one problem today and support the next ones as they appear.</p>
+    <p><a class="link" href="about.html">More about OC <svg class="ico" aria-hidden="true"><use href="#i-arrow"/></svg></a></p>
+  </div>
+</div></section>
+<section class="sec"><div class="wrap faq-grid">
+  <div class="faq-head">
+    <h2 class="h2" data-kinetic>Questions</h2>
+    <div class="faq-art" aria-hidden="true"><div class="par " style="left:4%;top:8%;width:34%"><svg class="shp " viewBox="0 0 100 130" aria-hidden="true" focusable="false" style="color:var(--indigo);transform:rotate(0deg)"><path d="M0 130V50A50 50 0 0 1 100 50V130Z"/></svg></div><div class="par " style="left:38%;top:42%;width:24%"><svg class="shp " viewBox="0 0 100 100" aria-hidden="true" focusable="false" style="color:var(--coral);transform:rotate(0deg)"><circle cx="50" cy="50" r="50"/></svg></div><div class="par " style="left:6%;top:56%;width:22%"><svg class="shp " viewBox="0 0 100 100" aria-hidden="true" focusable="false" style="color:var(--sun);transform:rotate(0deg)"><path d="M0 100V0A100 100 0 0 1 100 100Z"/></svg></div><div class="par " style="left:46%;top:8%;width:30%"><svg class="shp " viewBox="0 0 200 100" aria-hidden="true" focusable="false" style="color:var(--leaf);transform:rotate(0deg)"><path d="M0 100A100 100 0 0 1 200 100Z"/></svg></div></div>
+  </div>
+  <div class="faq"><details><summary>What does Official Creations do?</summary><div class="ans"><p>We help businesses move from traditional operations to modern, technology-driven ones. That means websites and a stronger online presence, plus the systems that run behind the scenes: automation, lead management and custom business tools.</p></div></details><details><summary>Who is OC for?</summary><div class="ans"><p>Today, mainly offline businesses and small and medium-sized businesses getting serious about digital. The foundations we build are meant to grow with startups and larger organisations too.</p></div></details><details><summary>What happens in a consultation?</summary><div class="ans"><p>We talk through how your business works today, what's getting in the way, how you currently show up online, and where the opportunities are. If we can help, we'll say what we'd do first and why.</p></div></details><details><summary>Do I have to buy something afterwards?</summary><div class="ans"><p>The consultation is built around understanding your business. Any recommendation follows from that, and what you do with it is up to you.</p></div></details><details><summary>Is OC just a website company?</summary><div class="ans"><p>Websites are where many businesses start, and we put real craft into them. But OC is building a connected ecosystem: digital presence, business operations, software products and internal tools that work together.</p></div></details><details><summary>Are your products available?</summary><div class="ans"><p>Some systems are in use internally, and others are planned. The Products page labels each one by its real status.</p></div></details></div>
+</div></section>
+<section class="sec"><div class="wrap">
+  <div class="panel mint close">
+    <h2 class="sr">Tell us about your business.</h2>
+    <div class="marquee" aria-hidden="true"><div class="mq-track"><div class="mq-half"><span>Tell us about your business.</span><i class="mq-dot" aria-hidden="true"></i><span>Tell us about your business.</span><i class="mq-dot" aria-hidden="true"></i><span>Tell us about your business.</span><i class="mq-dot" aria-hidden="true"></i></div><div class="mq-half"><span>Tell us about your business.</span><i class="mq-dot" aria-hidden="true"></i><span>Tell us about your business.</span><i class="mq-dot" aria-hidden="true"></i><span>Tell us about your business.</span><i class="mq-dot" aria-hidden="true"></i></div></div></div>
+    <div class="close-grid">
+      <div>
+        <p class="lede">A first conversation to understand where your business is and where it could go. Not a sales pitch.</p>
+        <div class="cta-row"><a class="btn" href="https://calendar.app.google/PonRCgVgWVxbKvs17" target="_blank" rel="noopener"><span>Pick a time</span><svg class="ico" aria-hidden="true"><use href="#i-cal"/></svg></a><a class="btn ghost" href="https://wa.me/919711925052" target="_blank" rel="noopener"><span>Chat on WhatsApp</span><svg class="ico" aria-hidden="true"><use href="#i-chat"/></svg></a></div>
+        <p class="form-note">Prefer email? <a class="link" href="mailto:officialcreations.online@gmail.com">officialcreations.online@gmail.com</a></p>
+      </div>
+      <form class="consult mini" id="c-form" data-to="officialcreations.online@gmail.com,sarthakbishtunfiltered@gmail.com" data-public="officialcreations.online@gmail.com">
+      <div class="field-row"><div class="field"><label for="c-name">Your name</label><input id="c-name" name="name" required autocomplete="name"></div><div class="field"><label for="c-email">Email</label><input id="c-email" name="email" type="email" required autocomplete="email"></div></div>
       
+      <div class="field"><label for="c-suggest">Suggest a time <span>(optional, your local time)</span></label><input id="c-suggest" name="suggest" type="datetime-local"></div>
+      <div class="field"><label for="c-challenge">What's getting in the way?</label><textarea id="c-challenge" name="challenge" required></textarea></div>
+      <button class="btn" type="submit"><span>Request a consultation</span><svg class="ico" aria-hidden="true"><use href="#i-arrow"/></svg></button>
+      <p class="form-msg" role="status"></p>
+      <p class="form-note">Sending opens your email app with this message ready to go.</p>
+    </form>
     </div>
-    <div>
-      <p class="lede">OC is a growing technology company working with businesses that are moving from traditional operations to digital ones.</p>
-      <p>We're building toward a single partner that can solve one problem today and support the next ones as they appear.</p>
-      <p><a class="link" href="about.html">More about OC <svg class="ico" aria-hidden="true"><use href="#i-arrow"/></svg></a></p>
-    </div>
   </div>
-</section>
-
-<section class="section" style="padding-top:0">
-  <div class="wrap">
-    <h2 class="h2">Questions</h2>
-    <div class="faq"><details><summary>What does Official Creations do?</summary><div class="ans"><p>We help businesses move from traditional operations to modern, technology-driven ones. That means websites and a stronger online presence, plus the systems that run behind the scenes: automation, lead management and custom business tools.</p></div></details><details><summary>Who is OC for?</summary><div class="ans"><p>Today, mainly offline businesses and small and medium-sized businesses getting serious about digital. The foundations we build are meant to grow with startups and larger organisations too.</p></div></details><details><summary>What happens in a consultation?</summary><div class="ans"><p>We talk through how your business works today, what's getting in the way, how you currently show up online, and where the opportunities are. If we can help, we'll say what we'd do first and why.</p></div></details><details><summary>Do I have to buy something afterwards?</summary><div class="ans"><p>The consultation is built around understanding your business. Any recommendation follows from that, and what you do with it is up to you.</p></div></details><details><summary>Is OC just a website company?</summary><div class="ans"><p>Websites are where many businesses start, and we put real craft into them. But OC is building a connected ecosystem: digital presence, business operations, software products and internal tools that work together.</p></div></details><details><summary>Are your products available?</summary><div class="ans"><p>Some systems are in use internally, and others are planned. The Products page labels each one by its real status.</p></div></details></div>
-  </div>
-</section>
-
-<section class="section dark final"><svg class="edge top" viewBox="0 0 1440 60" preserveAspectRatio="none" aria-hidden="true"><path d="M0 34C120 8 260 56 420 30S720 4 900 32s300 22 540-10V60H0z"/></svg>
-  <div class="wrap">
-    <h2>Tell us about your business.</h2>
-    <p class="lede">A first conversation to understand where your business is and where it could go. Not a sales pitch.</p>
-    <div class="cta-row"><a class="btn" href="book.html"><span>Book a Consultation</span><svg class="ico" aria-hidden="true"><use href="#i-arrow"/></svg></a></div>
-  </div>
-</section>
-
+</div></section>
 </main>
-<footer class="footer">
-  <div class="wrap">
-    <div class="footer-grid">
-      <div><img class="brand" src="assets/img/oc-logo-white.png" alt="Official Creations" width="280" height="336"><p class="brand-sub">Official Creations. From Offline to Online. Beyond.</p></div>
+<footer class="foot">
+  <div class="wrap"><div class="foot-panel">
+    <div aria-hidden="true"><div class="par " style="right:-1.6rem;top:-1.6rem;width:clamp(5rem,12vw,9rem)"><svg class="shp " viewBox="0 0 100 100" aria-hidden="true" focusable="false" style="color:var(--sun);transform:rotate(0deg)"><path d="M50 0L100 50L50 100L0 50Z"/></svg></div><div class="par " style="right:9%;bottom:-1.2rem;width:clamp(2.6rem,5vw,4rem)"><svg class="shp " viewBox="0 0 100 100" aria-hidden="true" focusable="false" style="color:var(--coral);transform:rotate(0deg)"><circle cx="50" cy="50" r="50"/></svg></div></div>
+    <div class="foot-grid">
+      <div><img class="foot-logo" src="assets/img/oc-logo.png" alt="Official Creations" width="280" height="336"><p class="foot-tag">From Offline to Online. Beyond.</p></div>
       <div><h4>Explore</h4><ul>
         <li><a href="index.html">Home</a></li><li><a href="ecosystem.html">Our Ecosystem</a></li>
         <li><a href="products.html">Products</a></li><li><a href="about.html">About</a></li></ul></div>
       <div><h4>Services</h4><ul>
         <li><a href="digital-presence.html">Digital Presence</a></li>
         <li><a href="business-operations.html">Business Operations</a></li></ul></div>
-      <div><h4>Contact</h4><ul><li><a href="book.html">Book a Consultation</a></li></ul></div>
+      <div><h4>Contact</h4><ul><li><a href="book.html" data-book>Book a Consultation</a></li><li><a href="https://wa.me/919711925052" target="_blank" rel="noopener">Chat on WhatsApp</a></li><li><a href="mailto:officialcreations.online@gmail.com">officialcreations.online@gmail.com</a></li></ul></div>
     </div>
-    <div class="legal"><span>&copy; <span id="yr">2026</span> Official Creations</span><span>All rights reserved</span></div>
-  </div>
+    <div class="foot-legal"><span>&copy; <span id="yr">2026</span> Official Creations</span><span>All rights reserved</span></div>
+  </div></div>
 </footer>
+<dialog id="book-sheet" class="sheet" aria-labelledby="sheet-title">
+  <div class="sheet-in">
+    <button class="sheet-x" type="button" aria-label="Close" data-close><svg class="ico" aria-hidden="true"><use href="#i-close"/></svg></button>
+    <h2 id="sheet-title">Book a Consultation</h2>
+    <p class="muted">A conversation about where your business is and where it could go. Not a pitch.</p>
+    <div class="sheet-quick"><a class="btn" href="https://calendar.app.google/PonRCgVgWVxbKvs17" target="_blank" rel="noopener"><span>Pick a time</span><svg class="ico" aria-hidden="true"><use href="#i-cal"/></svg></a><a class="btn ghost" href="https://wa.me/919711925052" target="_blank" rel="noopener"><span>Chat on WhatsApp</span><svg class="ico" aria-hidden="true"><use href="#i-chat"/></svg></a></div><p class="sheet-or">Or suggest a time and we will confirm by email.</p>
+    <form class="consult" id="s-form" data-to="officialcreations.online@gmail.com,sarthakbishtunfiltered@gmail.com" data-public="officialcreations.online@gmail.com">
+      <div class="field-row"><div class="field"><label for="s-name">Your name</label><input id="s-name" name="name" required autocomplete="name"></div><div class="field"><label for="s-email">Email</label><input id="s-email" name="email" type="email" required autocomplete="email"></div></div>
+      <div class="field"><label for="s-business">Business name</label><input id="s-business" name="business" required autocomplete="organization"></div><div class="field"><label for="s-site">Website or social page <span>(optional)</span></label><input id="s-site" name="site"></div><div class="field"><label for="s-interest">What are you looking for?</label><select id="s-interest" name="interest"><option>A website or better online presence</option><option>Better systems and automation</option><option>Both</option><option>Not sure yet</option></select></div>
+      <div class="field"><label for="s-suggest">Suggest a time <span>(optional, your local time)</span></label><input id="s-suggest" name="suggest" type="datetime-local"></div>
+      <div class="field"><label for="s-challenge">What's getting in the way?</label><textarea id="s-challenge" name="challenge" required></textarea></div>
+      <button class="btn" type="submit"><span>Request a consultation</span><svg class="ico" aria-hidden="true"><use href="#i-arrow"/></svg></button>
+      <p class="form-msg" role="status"></p>
+      <p class="form-note">Sending opens your email app with this message ready to go.</p>
+    </form>
+  </div>
+</dialog>
 <script src="assets/js/oc.js" defer></script>
+<script src="assets/js/home.js" defer></script>
 </body>
 </html>

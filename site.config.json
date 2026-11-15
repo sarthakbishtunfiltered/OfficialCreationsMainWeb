@@ -1,7 +1,11 @@
 {
-  "_help": "Fill these in, then run: python3 build.py. Empty values are simply left out of the site.",
-  "contact_email": "REPLACE_ME@example.com",
-  "booking_url": "",
+  "_help": "Fill these in, then run: python3 build.py. Empty values are left out of the site. contact_email is shown publicly; every consultation request is addressed to it and to also_send_to. whatsapp is digits only with the country code.",
+  "contact_email": "officialcreations.online@gmail.com",
+  "also_send_to": [
+    "sarthakbishtunfiltered@gmail.com"
+  ],
+  "booking_url": "https://calendar.app.google/PonRCgVgWVxbKvs17",
+  "whatsapp": "919711925052",
   "founder_name": "",
   "founder_note": "",
   "socials": {

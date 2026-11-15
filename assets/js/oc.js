@@ -1,4 +1,4 @@
-/* Official Creations — site behaviour. Vanilla JS, no dependencies. */
+/* Official Creations — shared site behaviour. Vanilla JS, no dependencies. */
 (function () {
   "use strict";
   var root = document.documentElement;
@@ -7,20 +7,21 @@
   /* Mobile navigation */
   var toggle = document.querySelector(".nav-toggle");
   var links = document.getElementById("nav-links");
+  var setNavOpen = function () {};
   if (toggle && links) {
-    var setOpen = function (open) {
+    setNavOpen = function (open) {
       toggle.setAttribute("aria-expanded", String(open));
       toggle.setAttribute("aria-label", open ? "Close menu" : "Open menu");
       links.classList.toggle("open", open);
     };
     toggle.addEventListener("click", function () {
-      setOpen(toggle.getAttribute("aria-expanded") !== "true");
+      setNavOpen(toggle.getAttribute("aria-expanded") !== "true");
     });
     document.addEventListener("keydown", function (e) {
-      if (e.key === "Escape") setOpen(false);
+      if (e.key === "Escape") setNavOpen(false);
     });
     links.addEventListener("click", function (e) {
-      if (e.target.closest("a")) setOpen(false);
+      if (e.target.closest("a")) setNavOpen(false);
     });
   }
 
@@ -42,7 +43,7 @@
     targets.forEach(function (t) { t.classList.add("in"); });
   }
 
-  /* Interactive ecosystem map */
+  /* Interactive ecosystem map (hero card and Our Ecosystem page) */
   document.querySelectorAll("[data-map]").forEach(function (map) {
     var nodes = map.querySelectorAll(".node");
     var panel = map.querySelector(".map-panel");
@@ -50,7 +51,7 @@
     var title = panel.querySelector("h3");
     var text = panel.querySelector("p");
     var more = panel.querySelector("a");
-    var base = { t: title.textContent, p: text.textContent, h: more ? more.getAttribute("href") : "", l: more ? more.textContent : "" };
+    var base = { t: title.textContent, p: text.textContent };
 
     function activate(node) {
       nodes.forEach(function (n) { n.classList.toggle("on", n === node); });
@@ -82,33 +83,63 @@
     if (more) more.hidden = true;
   });
 
-  /* Consultation form: opens a prefilled email. No backend. */
-  var form = document.getElementById("consult-form");
-  if (form) {
+  /* Booking sheet: every "Book a Consultation" link opens the form directly.
+     Without dialog support, or without JavaScript, the link goes to book.html. */
+  var sheet = document.getElementById("book-sheet");
+  var lastTrigger = null;
+  var canSheet = !!(sheet && typeof sheet.showModal === "function");
+  if (canSheet) {
+    document.addEventListener("click", function (e) {
+      var a = e.target.closest("a[data-book]");
+      if (!a || e.defaultPrevented || e.button || e.metaKey || e.ctrlKey || e.shiftKey || e.altKey) return;
+      e.preventDefault();
+      setNavOpen(false);
+      lastTrigger = a;
+      if (!sheet.open) sheet.showModal();
+      root.classList.add("sheet-open");
+    });
+    sheet.addEventListener("click", function (e) {
+      if (e.target === sheet || e.target.closest("[data-close]")) sheet.close();
+    });
+    sheet.addEventListener("close", function () {
+      root.classList.remove("sheet-open");
+      if (lastTrigger && document.contains(lastTrigger)) { try { lastTrigger.focus({ preventScroll: true }); } catch (err) {} }
+    });
+  }
+
+  /* Consultation forms: open a prefilled email. No backend. */
+  document.querySelectorAll("form.consult").forEach(function (form) {
     var msg = form.querySelector(".form-msg");
     form.addEventListener("submit", function (e) {
       e.preventDefault();
       var to = form.getAttribute("data-to") || "";
+      var pub = form.getAttribute("data-public") || to;
       var d = new FormData(form);
+      var val = function (k, fallback) { var v = d.get(k); return v ? String(v) : (fallback || ""); };
+      var suggest = val("suggest").replace("T", " at ");
       var lines = [
-        "Name: " + (d.get("name") || ""),
-        "Business: " + (d.get("business") || ""),
-        "Email: " + (d.get("email") || ""),
-        "Website or social page: " + (d.get("site") || "-"),
-        "Interested in: " + (d.get("interest") || ""),
+        "Name: " + val("name"),
+        "Business: " + val("business", "-"),
+        "Email: " + val("email"),
+        "Website or social page: " + val("site", "-"),
+        "Interested in: " + val("interest", "-"),
+        "Suggested time: " + (suggest || "-"),
         "",
         "Where the business is today and what's getting in the way:",
-        (d.get("challenge") || "")
+        val("challenge")
       ];
       if (!to || to.indexOf("REPLACE_ME") !== -1) {
         msg.textContent = "The consultation email address hasn't been set up yet. Add it in site.config.json and rebuild.";
         msg.classList.add("show");
         return;
       }
-      var subject = "Consultation request: " + (d.get("business") || d.get("name") || "");
+      var subject = "Consultation request: " + (val("business") || val("name"));
       window.location.href = "mailto:" + to + "?subject=" + encodeURIComponent(subject) + "&body=" + encodeURIComponent(lines.join("\n"));
-      msg.textContent = "Your email app should open with the message ready to send. If nothing opens, email us directly at " + to + ".";
+      msg.textContent = "Your email app should open with the message ready to send. If nothing opens, email us at " + pub + ".";
       msg.classList.add("show");
     });
-  }
+  });
+
+  var yr = document.getElementById("yr");
+  if (yr) yr.textContent = String(new Date().getFullYear());
 })();

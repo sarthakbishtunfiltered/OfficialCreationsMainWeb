@@ -5,16 +5,16 @@
 <meta name="viewport" content="width=device-width, initial-scale=1">
 <title>Products | Official Creations</title>
 <meta name="description" content="Software and SaaS products from Official Creations, labelled by their actual status.">
-<meta name="theme-color" content="#EAE4E5">
+<meta name="theme-color" content="#FCF9F2">
 <meta property="og:title" content="Products | Official Creations">
 <meta property="og:description" content="Software and SaaS products from Official Creations, labelled by their actual status.">
 <meta property="og:type" content="website">
 <link rel="icon" type="image/png" href="assets/img/oc-logo-white-on-black.png">
 <link rel="apple-touch-icon" href="assets/img/oc-logo-white-on-black.png">
-<link rel="preconnect" href="https://fonts.googleapis.com"><link rel="preconnect" href="https://fonts.gstatic.com" crossorigin><link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Bricolage+Grotesque:opsz,wght@12..96,700;12..96,800&family=Instrument+Sans:wght@400;500;600;700&display=swap">
+<link rel="preconnect" href="https://fonts.googleapis.com"><link rel="preconnect" href="https://fonts.gstatic.com" crossorigin><link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Bricolage+Grotesque:opsz,wght@12..96,700;12..96,800&family=Instrument+Serif:ital@1&family=Outfit:wght@800&family=Instrument+Sans:wght@400;500;600;700&display=swap">
 <link rel="stylesheet" href="assets/css/oc.css">
 </head>
-<body>
+<body data-page="products">
 <svg width="0" height="0" style="position:absolute" aria-hidden="true" focusable="false"><defs>
 <symbol id="i-site" viewBox="0 0 24 24"><path d="M4 6.5c0-1 .8-2 2-2h12c1.2 0 2 1 2 2v11c0 1-.8 2-2 2H6c-1.2 0-2-1-2-2z"/><path d="M4.2 9.6c5.2.4 10.5.3 15.6-.1"/><path d="M7 7.2h.01M9.4 7.2h.01"/></symbol>
 <symbol id="i-search" viewBox="0 0 24 24"><path d="M10.5 4.5a6 6 0 1 0 .1 12 6 6 0 0 0-.1-12z"/><path d="M15.2 15.4l4.6 4.4"/></symbol>
@@ -27,15 +27,23 @@
 <symbol id="i-loop" viewBox="0 0 24 24"><path d="M19 12a7 7 0 1 1-2.2-5.1"/><path d="M19.2 4.6v3.8h-3.8"/></symbol>
 <symbol id="i-arrow" viewBox="0 0 24 24"><path d="M4 12h15M13.5 6.5L19 12l-5.5 5.5"/></symbol>
 <symbol id="i-chat" viewBox="0 0 24 24"><path d="M4 5h16v11H9l-5 4z"/><path d="M8 9.5h8M8 12.5h5"/></symbol>
+<symbol id="i-cal" viewBox="0 0 24 24"><path d="M4 7.5c0-1 .8-2 2-2h12c1.2 0 2 1 2 2v11c0 1-.8 2-2 2H6c-1.2 0-2-1-2-2z"/><path d="M4.2 10.4h15.6M8 3.8v3M16 3.8v3"/></symbol>
+<symbol id="i-clock" viewBox="0 0 24 24"><path d="M12 4.5a7.5 7.5 0 1 0 .1 15 7.5 7.5 0 0 0-.1-15z"/><path d="M12 8.2V12l2.8 1.8"/></symbol>
+<symbol id="i-close" viewBox="0 0 24 24"><path d="M6 6l12 12M18 6L6 18"/></symbol>
+<filter id="grain" x="0" y="0" width="100%" height="100%" color-interpolation-filters="sRGB"><feTurbulence type="fractalNoise" baseFrequency=".9" numOctaves="2" seed="7" result="n"/><feColorMatrix in="n" type="matrix" values="0 0 0 0 1  0 0 0 0 1  0 0 0 0 1  0 0 0 3.4 -1.62" result="light"/><feComposite in="light" in2="SourceAlpha" operator="in" result="lit"/><feColorMatrix in="n" type="matrix" values="0 0 0 0 0  0 0 0 0 0  0 0 0 0 0  0 0 0 -3.4 1.7" result="dark"/><feComposite in="dark" in2="SourceAlpha" operator="in" result="dk"/><feComponentTransfer in="dk" result="dk2"><feFuncA type="linear" slope=".32"/></feComponentTransfer><feComponentTransfer in="lit" result="lit2"><feFuncA type="linear" slope=".55"/></feComponentTransfer><feMerge><feMergeNode in="SourceGraphic"/><feMergeNode in="dk2"/><feMergeNode in="lit2"/></feMerge></filter>
 </defs></svg>
 <a class="skip" href="#main">Skip to content</a>
 <header class="nav">
   <div class="nav-bar">
     <a class="logo" href="index.html" aria-label="Official Creations, home"><img src="assets/img/oc-logo.png" alt="" width="280" height="336"><small>Official Creations</small></a>
-    <button class="nav-toggle" type="button" aria-expanded="false" aria-controls="nav-links" aria-label="Open menu"><span></span><span></span></button>
+    <div class="nav-right">
+      <a class="nav-book" href="book.html" data-book>Book</a>
+      <button class="nav-toggle" type="button" aria-expanded="false" aria-controls="nav-links" aria-label="Open menu"><span></span><span></span></button>
+    </div>
     <nav id="nav-links" class="nav-links" aria-label="Main">
       <a href="index.html">Home</a><a href="ecosystem.html">Our Ecosystem</a><a href="digital-presence.html">Digital Presence</a><a href="business-operations.html">Business Operations</a><a href="products.html" aria-current="page">Products</a><a href="about.html">About</a>
-      <a class="nav-cta" href="book.html">Book a Consultation</a>
+      <a class="nav-chat" href="https://wa.me/919711925052" target="_blank" rel="noopener" aria-label="Chat on WhatsApp"><svg class="ico" aria-hidden="true"><use href="#i-chat"/></svg><span>Chat</span></a>
+      <a class="nav-cta" href="book.html" data-book>Book a Consultation</a>
     </nav>
   </div>
 </header>
@@ -76,26 +84,44 @@
   <div class="wrap">
     <h2>Need something like this for your business?</h2>
     <p class="lede">A first conversation to understand where your business is and where it could go. Not a sales pitch.</p>
-    <div class="cta-row"><a class="btn" href="book.html"><span>Book a Consultation</span><svg class="ico" aria-hidden="true"><use href="#i-arrow"/></svg></a></div>
+    <div class="cta-row"><a class="btn" href="book.html" data-book><span>Book a Consultation</span><svg class="ico" aria-hidden="true"><use href="#i-arrow"/></svg></a></div>
   </div>
 </section>
 
 </main>
-<footer class="footer">
-  <div class="wrap">
-    <div class="footer-grid">
-      <div><img class="brand" src="assets/img/oc-logo-white.png" alt="Official Creations" width="280" height="336"><p class="brand-sub">Official Creations. From Offline to Online. Beyond.</p></div>
+<footer class="foot">
+  <div class="wrap"><div class="foot-panel">
+    <div aria-hidden="true"><div class="par " style="right:-1.6rem;top:-1.6rem;width:clamp(5rem,12vw,9rem)"><svg class="shp " viewBox="0 0 100 100" aria-hidden="true" focusable="false" style="color:var(--sun);transform:rotate(0deg)"><path d="M50 0L100 50L50 100L0 50Z"/></svg></div><div class="par " style="right:9%;bottom:-1.2rem;width:clamp(2.6rem,5vw,4rem)"><svg class="shp " viewBox="0 0 100 100" aria-hidden="true" focusable="false" style="color:var(--coral);transform:rotate(0deg)"><circle cx="50" cy="50" r="50"/></svg></div></div>
+    <div class="foot-grid">
+      <div><img class="foot-logo" src="assets/img/oc-logo.png" alt="Official Creations" width="280" height="336"><p class="foot-tag">From Offline to Online. Beyond.</p></div>
       <div><h4>Explore</h4><ul>
         <li><a href="index.html">Home</a></li><li><a href="ecosystem.html">Our Ecosystem</a></li>
         <li><a href="products.html">Products</a></li><li><a href="about.html">About</a></li></ul></div>
       <div><h4>Services</h4><ul>
         <li><a href="digital-presence.html">Digital Presence</a></li>
         <li><a href="business-operations.html">Business Operations</a></li></ul></div>
-      <div><h4>Contact</h4><ul><li><a href="book.html">Book a Consultation</a></li></ul></div>
+      <div><h4>Contact</h4><ul><li><a href="book.html" data-book>Book a Consultation</a></li><li><a href="https://wa.me/919711925052" target="_blank" rel="noopener">Chat on WhatsApp</a></li><li><a href="mailto:officialcreations.online@gmail.com">officialcreations.online@gmail.com</a></li></ul></div>
     </div>
-    <div class="legal"><span>&copy; <span id="yr">2026</span> Official Creations</span><span>All rights reserved</span></div>
-  </div>
+    <div class="foot-legal"><span>&copy; <span id="yr">2026</span> Official Creations</span><span>All rights reserved</span></div>
+  </div></div>
 </footer>
+<dialog id="book-sheet" class="sheet" aria-labelledby="sheet-title">
+  <div class="sheet-in">
+    <button class="sheet-x" type="button" aria-label="Close" data-close><svg class="ico" aria-hidden="true"><use href="#i-close"/></svg></button>
+    <h2 id="sheet-title">Book a Consultation</h2>
+    <p class="muted">A conversation about where your business is and where it could go. Not a pitch.</p>
+    <div class="sheet-quick"><a class="btn" href="https://calendar.app.google/PonRCgVgWVxbKvs17" target="_blank" rel="noopener"><span>Pick a time</span><svg class="ico" aria-hidden="true"><use href="#i-cal"/></svg></a><a class="btn ghost" href="https://wa.me/919711925052" target="_blank" rel="noopener"><span>Chat on WhatsApp</span><svg class="ico" aria-hidden="true"><use href="#i-chat"/></svg></a></div><p class="sheet-or">Or suggest a time and we will confirm by email.</p>
+    <form class="consult" id="s-form" data-to="officialcreations.online@gmail.com,sarthakbishtunfiltered@gmail.com" data-public="officialcreations.online@gmail.com">
+      <div class="field-row"><div class="field"><label for="s-name">Your name</label><input id="s-name" name="name" required autocomplete="name"></div><div class="field"><label for="s-email">Email</label><input id="s-email" name="email" type="email" required autocomplete="email"></div></div>
+      <div class="field"><label for="s-business">Business name</label><input id="s-business" name="business" required autocomplete="organization"></div><div class="field"><label for="s-site">Website or social page <span>(optional)</span></label><input id="s-site" name="site"></div><div class="field"><label for="s-interest">What are you looking for?</label><select id="s-interest" name="interest"><option>A website or better online presence</option><option>Better systems and automation</option><option>Both</option><option>Not sure yet</option></select></div>
+      <div class="field"><label for="s-suggest">Suggest a time <span>(optional, your local time)</span></label><input id="s-suggest" name="suggest" type="datetime-local"></div>
+      <div class="field"><label for="s-challenge">What's getting in the way?</label><textarea id="s-challenge" name="challenge" required></textarea></div>
+      <button class="btn" type="submit"><span>Request a consultation</span><svg class="ico" aria-hidden="true"><use href="#i-arrow"/></svg></button>
+      <p class="form-msg" role="status"></p>
+      <p class="form-note">Sending opens your email app with this message ready to go.</p>
+    </form>
+  </div>
+</dialog>
 <script src="assets/js/oc.js" defer></script>
 </body>
 </html>

@@ -12,11 +12,16 @@ ROOT = pathlib.Path(__file__).parent
 CFG = json.loads((ROOT / "site.config.json").read_text(encoding="utf-8"))
 esc = html.escape
 
+RECIPIENTS = ",".join([CFG["contact_email"]] + [e for e in CFG.get("also_send_to", []) if e])
+WA = ("https://wa.me/" + CFG["whatsapp"]) if CFG.get("whatsapp") else ""
+
 FONTS = (
     '<link rel="preconnect" href="https://fonts.googleapis.com">'
     '<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>'
     '<link rel="stylesheet" href="https://fonts.googleapis.com/css2?'
     "family=Bricolage+Grotesque:opsz,wght@12..96,700;12..96,800&"
+    "family=Instrument+Serif:ital@1&"
+    "family=Outfit:wght@800&"
     'family=Instrument+Sans:wght@400;500;600;700&display=swap">'
 )
 
@@ -33,6 +38,10 @@ SPRITE = """<svg width="0" height="0" style="position:absolute" aria-hidden="tru
 <symbol id="i-loop" viewBox="0 0 24 24"><path d="M19 12a7 7 0 1 1-2.2-5.1"/><path d="M19.2 4.6v3.8h-3.8"/></symbol>
 <symbol id="i-arrow" viewBox="0 0 24 24"><path d="M4 12h15M13.5 6.5L19 12l-5.5 5.5"/></symbol>
 <symbol id="i-chat" viewBox="0 0 24 24"><path d="M4 5h16v11H9l-5 4z"/><path d="M8 9.5h8M8 12.5h5"/></symbol>
+<symbol id="i-cal" viewBox="0 0 24 24"><path d="M4 7.5c0-1 .8-2 2-2h12c1.2 0 2 1 2 2v11c0 1-.8 2-2 2H6c-1.2 0-2-1-2-2z"/><path d="M4.2 10.4h15.6M8 3.8v3M16 3.8v3"/></symbol>
+<symbol id="i-clock" viewBox="0 0 24 24"><path d="M12 4.5a7.5 7.5 0 1 0 .1 15 7.5 7.5 0 0 0-.1-15z"/><path d="M12 8.2V12l2.8 1.8"/></symbol>
+<symbol id="i-close" viewBox="0 0 24 24"><path d="M6 6l12 12M18 6L6 18"/></symbol>
+<filter id="grain" x="0" y="0" width="100%" height="100%" color-interpolation-filters="sRGB"><feTurbulence type="fractalNoise" baseFrequency=".9" numOctaves="2" seed="7" result="n"/><feColorMatrix in="n" type="matrix" values="0 0 0 0 1  0 0 0 0 1  0 0 0 0 1  0 0 0 3.4 -1.62" result="light"/><feComposite in="light" in2="SourceAlpha" operator="in" result="lit"/><feColorMatrix in="n" type="matrix" values="0 0 0 0 0  0 0 0 0 0  0 0 0 0 0  0 0 0 -3.4 1.7" result="dark"/><feComposite in="dark" in2="SourceAlpha" operator="in" result="dk"/><feComponentTransfer in="dk" result="dk2"><feFuncA type="linear" slope=".32"/></feComponentTransfer><feComponentTransfer in="lit" result="lit2"><feFuncA type="linear" slope=".55"/></feComponentTransfer><feMerge><feMergeNode in="SourceGraphic"/><feMergeNode in="dk2"/><feMergeNode in="lit2"/></feMerge></filter>
 </defs></svg>"""
 
 
@@ -51,7 +60,31 @@ def edge(pos):
 
 def btn(label, href="book.html", ghost=False):
     cls = "btn ghost" if ghost else "btn"
-    return f'<a class="{cls}" href="{href}"><span>{label}</span>{ico("arrow")}</a>'
+    book = " data-book" if href == "book.html" else ""
+    return f'<a class="{cls}" href="{href}"{book}><span>{label}</span>{ico("arrow")}</a>'
+
+
+# ---------- Grainy shapes (shared by the homepage and the footer) ----------
+SHAPE_PATHS = {
+    "tri": ("0 0 100 100", '<path d="M0 0H100L0 100Z"/>'),
+    "semi": ("0 0 200 100", '<path d="M0 100A100 100 0 0 1 200 100Z"/>'),
+    "circ": ("0 0 100 100", '<circle cx="50" cy="50" r="50"/>'),
+    "quarter": ("0 0 100 100", '<path d="M0 100V0A100 100 0 0 1 100 100Z"/>'),
+    "diamond": ("0 0 100 100", '<path d="M50 0L100 50L50 100L0 50Z"/>'),
+    "arch": ("0 0 100 130", '<path d="M0 130V50A50 50 0 0 1 100 50V130Z"/>'),
+    "wedge": ("0 0 100 100", '<path d="M0 0L100 38L38 100Z"/>'),
+}
+
+
+def shp(kind, color, rot=0, cls=""):
+    vb, path = SHAPE_PATHS[kind]
+    return (f'<svg class="shp {cls}" viewBox="{vb}" aria-hidden="true" focusable="false" '
+            f'style="color:var(--{color});transform:rotate({rot}deg)">{path}</svg>')
+
+
+def par(kind, color, pos, width, rot=0, speed=None, cls=""):
+    data = f' data-par="{speed}"' if speed is not None else ""
+    return f'<div class="par {cls}"{data} style="{pos};width:{width}">{shp(kind, color, rot)}</div>'
 
 
 # ---------- Shared chrome ----------
@@ -69,31 +102,41 @@ def header(key):
     items = "".join(
         f'<a href="{h}"{" aria-current=\"page\"" if k == key else ""}>{t}</a>' for h, t, k in NAV
     )
+    chat = (f'<a class="nav-chat" href="{WA}" target="_blank" rel="noopener" aria-label="Chat on WhatsApp">'
+            f'{ico("chat")}<span>Chat</span></a>') if WA else ""
     cta_cur = ' aria-current="page"' if key == "book" else ""
     return f"""<a class="skip" href="#main">Skip to content</a>
 <header class="nav">
   <div class="nav-bar">
     <a class="logo" href="index.html" aria-label="Official Creations, home"><img src="assets/img/oc-logo.png" alt="" width="280" height="336"><small>Official Creations</small></a>
-    <button class="nav-toggle" type="button" aria-expanded="false" aria-controls="nav-links" aria-label="Open menu"><span></span><span></span></button>
+    <div class="nav-right">
+      <a class="nav-book" href="book.html" data-book>Book</a>
+      <button class="nav-toggle" type="button" aria-expanded="false" aria-controls="nav-links" aria-label="Open menu"><span></span><span></span></button>
+    </div>
     <nav id="nav-links" class="nav-links" aria-label="Main">
       {items}
-      <a class="nav-cta" href="book.html"{cta_cur}>Book a Consultation</a>
+      {chat}
+      <a class="nav-cta" href="book.html" data-book{cta_cur}>Book a Consultation</a>
     </nav>
   </div>
 </header>"""
 
 
 def footer():
+    pub = CFG["contact_email"]
+    email_li = "" if "REPLACE_ME" in pub else f'<li><a href="mailto:{esc(pub)}">{esc(pub)}</a></li>'
+    wa_li = f'<li><a href="{WA}" target="_blank" rel="noopener">Chat on WhatsApp</a></li>' if WA else ""
     socials = "".join(
         f'<li><a href="{esc(u)}" rel="noopener">{esc(n)}</a></li>' for n, u in CFG["socials"].items() if u
     )
-    email = CFG["contact_email"]
-    email_li = "" if "REPLACE_ME" in email else f'<li><a href="mailto:{esc(email)}">{esc(email)}</a></li>'
-    contact = f'<li><a href="book.html">Book a Consultation</a></li>{email_li}{socials}'
-    return f"""<footer class="footer">
-  <div class="wrap">
-    <div class="footer-grid">
-      <div><img class="brand" src="assets/img/oc-logo-white.png" alt="Official Creations" width="280" height="336"><p class="brand-sub">Official Creations. From Offline to Online. Beyond.</p></div>
+    contact = f'<li><a href="book.html" data-book>Book a Consultation</a></li>{wa_li}{email_li}{socials}'
+    deco = (par("diamond", "sun", "right:-1.6rem;top:-1.6rem", "clamp(5rem,12vw,9rem)")
+            + par("circ", "coral", "right:9%;bottom:-1.2rem", "clamp(2.6rem,5vw,4rem)"))
+    return f"""<footer class="foot">
+  <div class="wrap"><div class="foot-panel">
+    <div aria-hidden="true">{deco}</div>
+    <div class="foot-grid">
+      <div><img class="foot-logo" src="assets/img/oc-logo.png" alt="Official Creations" width="280" height="336"><p class="foot-tag">From Offline to Online. Beyond.</p></div>
       <div><h4>Explore</h4><ul>
         <li><a href="index.html">Home</a></li><li><a href="ecosystem.html">Our Ecosystem</a></li>
         <li><a href="products.html">Products</a></li><li><a href="about.html">About</a></li></ul></div>
@@ -102,12 +145,73 @@ def footer():
         <li><a href="business-operations.html">Business Operations</a></li></ul></div>
       <div><h4>Contact</h4><ul>{contact}</ul></div>
     </div>
-    <div class="legal"><span>&copy; <span id="yr">2026</span> Official Creations</span><span>All rights reserved</span></div>
-  </div>
+    <div class="foot-legal"><span>&copy; <span id="yr">2026</span> Official Creations</span><span>All rights reserved</span></div>
+  </div></div>
 </footer>"""
 
 
-def page(fname, key, title, desc, body):
+def pick_link(ghost=False):
+    url = CFG["booking_url"].strip()
+    if not url:
+        return ""
+    cls = "btn ghost" if ghost else "btn"
+    return f'<a class="{cls}" href="{esc(url)}" target="_blank" rel="noopener"><span>Pick a time</span>{ico("cal")}</a>'
+
+
+def chat_link(ghost=True):
+    if not WA:
+        return ""
+    cls = "btn ghost" if ghost else "btn"
+    return f'<a class="{cls}" href="{WA}" target="_blank" rel="noopener"><span>Chat on WhatsApp</span>{ico("chat")}</a>'
+
+
+def consult_form(p, mini=False):
+    pub = CFG["contact_email"]
+    name_email = (
+        f'<div class="field-row">'
+        f'<div class="field"><label for="{p}-name">Your name</label><input id="{p}-name" name="name" required autocomplete="name"></div>'
+        f'<div class="field"><label for="{p}-email">Email</label><input id="{p}-email" name="email" type="email" required autocomplete="email"></div>'
+        f'</div>'
+    )
+    full = "" if mini else (
+        f'<div class="field"><label for="{p}-business">Business name</label><input id="{p}-business" name="business" required autocomplete="organization"></div>'
+        f'<div class="field"><label for="{p}-site">Website or social page <span>(optional)</span></label><input id="{p}-site" name="site"></div>'
+        f'<div class="field"><label for="{p}-interest">What are you looking for?</label>'
+        f'<select id="{p}-interest" name="interest">'
+        f'<option>A website or better online presence</option><option>Better systems and automation</option>'
+        f'<option>Both</option><option>Not sure yet</option></select></div>'
+    )
+    suggest = (f'<div class="field"><label for="{p}-suggest">Suggest a time <span>(optional, your local time)</span></label>'
+               f'<input id="{p}-suggest" name="suggest" type="datetime-local"></div>')
+    return f"""<form class="consult{" mini" if mini else ""}" id="{p}-form" data-to="{esc(RECIPIENTS)}" data-public="{esc(pub)}">
+      {name_email}
+      {full}
+      {suggest}
+      <div class="field"><label for="{p}-challenge">What's getting in the way?</label><textarea id="{p}-challenge" name="challenge" required></textarea></div>
+      <button class="btn" type="submit"><span>Request a consultation</span>{ico("arrow")}</button>
+      <p class="form-msg" role="status"></p>
+      <p class="form-note">Sending opens your email app with this message ready to go.</p>
+    </form>"""
+
+
+def booking_sheet():
+    quick = pick_link() + chat_link()
+    quick_html = f'<div class="sheet-quick">{quick}</div><p class="sheet-or">Or suggest a time and we will confirm by email.</p>' if quick else ""
+    return f"""<dialog id="book-sheet" class="sheet" aria-labelledby="sheet-title">
+  <div class="sheet-in">
+    <button class="sheet-x" type="button" aria-label="Close" data-close>{ico("close")}</button>
+    <h2 id="sheet-title">Book a Consultation</h2>
+    <p class="muted">A conversation about where your business is and where it could go. Not a pitch.</p>
+    {quick_html}
+    {consult_form("s")}
+  </div>
+</dialog>"""
+
+
+def page(fname, key, title, desc, body, home=False):
+    sheet = "" if key == "book" else booking_sheet()
+    extra_css = '<link rel="stylesheet" href="assets/css/home.css">\n' if home else ""
+    extra_js = '<script src="assets/js/home.js" defer></script>\n' if home else ""
     doc = f"""<!doctype html>
 <html lang="en" class="no-js">
 <head>
@@ -115,7 +219,7 @@ def page(fname, key, title, desc, body):
 <meta name="viewport" content="width=device-width, initial-scale=1">
 <title>{esc(title)}</title>
 <meta name="description" content="{esc(desc)}">
-<meta name="theme-color" content="#EAE4E5">
+<meta name="theme-color" content="#FCF9F2">
 <meta property="og:title" content="{esc(title)}">
 <meta property="og:description" content="{esc(desc)}">
 <meta property="og:type" content="website">
@@ -123,16 +227,17 @@ def page(fname, key, title, desc, body):
 <link rel="apple-touch-icon" href="assets/img/oc-logo-white-on-black.png">
 {FONTS}
 <link rel="stylesheet" href="assets/css/oc.css">
-</head>
-<body>
+{extra_css}</head>
+<body data-page="{key}">
 {SPRITE}
 {header(key)}
 <main id="main">
 {body}
 </main>
 {footer()}
+{sheet}
 <script src="assets/js/oc.js" defer></script>
-</body>
+{extra_js}</body>
 </html>
 """
     (ROOT / fname).write_text(doc, encoding="utf-8")
@@ -228,139 +333,6 @@ FAQ_HOME = [
     ("Are your products available?",
      "<p>Some systems are in use internally, and others are planned. The Products page labels each one by its real status.</p>"),
 ]
-
-
-def home():
-    body = f"""
-<section class="hero"><div class="wrap hero-grid">
-  <div>
-    <h1><span class="ln"><span>From Offline</span></span><span class="ln"><span>to Online.</span></span><span class="ln"><span>Beyond.</span></span></h1>
-    <div class="hero-copy">
-      <p class="lede">Official Creations builds the digital and operational foundations that help businesses move online, run better and keep scaling.</p>
-      <div class="cta-row">{btn("Book a Consultation")}{btn("Explore Our Ecosystem", "ecosystem.html", ghost=True)}</div>
-    </div>
-  </div>
-  {eco_map()}
-</div></section>
-
-<section class="section dark">{edge("top")}
-  <div class="wrap intro">
-    <h2 class="h2">A website is where it starts. It isn't where it ends.</h2>
-    <div class="body">
-      <p>Most businesses collect tools one at a time: a site here, a spreadsheet there, a social account nobody has time for. Each piece works alone. Together, they don't.</p>
-      <p>OC designs them as one system, so what you build today still fits what you need next year.</p>
-    </div>
-  </div>
-</section>
-
-<section class="section dark" style="padding-top:0">
-  <div class="wrap">
-    <h2 class="h2">One ecosystem, four layers.</h2>
-    <ul class="thread">
-      <li><h3>Digital Presence</h3><p>How people find and trust you.</p></li>
-      <li><h3>Business Operations</h3><p>How the work gets done behind the scenes.</p></li>
-      <li><h3>Products</h3><p>Software and SaaS built around real business problems.</p></li>
-      <li><h3>Internal tools</h3><p>The automation systems OC runs itself.</p></li>
-    </ul>
-    <p class="handoff">A website captures an enquiry. A lead system keeps track of it. A workflow follows it up.</p>
-    <p style="margin-top:2rem"><a class="link" href="ecosystem.html">How the layers connect {ico("arrow")}</a></p>
-  </div>
-  {edge("bottom")}
-</section>
-
-<section class="section" id="what-we-do">
-  <div class="wrap">
-    <h2 class="h2" style="max-width:16ch">Two pillars. One foundation.</h2>
-    <div class="pillars">
-      <a class="pillar p1" href="digital-presence.html">
-        {ico("site", "big")}
-        <h3>Digital Presence</h3>
-        <p>Help your business be found, understood and trusted online.</p>
-        <ul>
-          <li class="lead">{ico("site")}Website design and development</li>
-          <li>{ico("search")}Search engine optimisation</li>
-          <li>{ico("identity")}Digital identity</li>
-          <li>{ico("eye")}Online visibility</li>
-          <li>{ico("social")}Social media management</li>
-        </ul>
-        <span class="link">Explore Digital Presence {ico("arrow")}</span>
-      </a>
-      <a class="pillar p2" href="business-operations.html">
-        {ico("system", "big")}
-        <h3>Business Operations</h3>
-        <p>Run the business on connected systems instead of scattered tools.</p>
-        <ul>
-          <li>{ico("flow")}Workflow automation</li>
-          <li>{ico("system")}Custom business management systems</li>
-          <li>{ico("funnel")}Lead generation and management</li>
-          <li>{ico("loop")}Operational process optimisation</li>
-        </ul>
-        <span class="link">Explore Business Operations {ico("arrow")}</span>
-      </a>
-    </div>
-  </div>
-</section>
-
-<section class="section dark">{edge("top")}
-  <div class="wrap">
-    <h2 class="h2" style="max-width:18ch">We understand the business before we build anything.</h2>
-    <div class="approach">
-      <div class="step"><span class="dot">1</span><div><h3>Discover</h3><p>We start with how your business earns, where it's stuck and what your customers actually do.</p></div></div>
-      <div class="step"><span class="dot">2</span><div><h3>Strategise</h3><p>We decide what to fix first, what can wait, and how the pieces will connect.</p></div></div>
-      <div class="step"><span class="dot">3</span><div><h3>Build</h3><p>We build in working stages, so you see progress along the way.</p></div></div>
-      <div class="step"><span class="dot">4</span><div><h3>Evolve</h3><p>As your business changes, the foundations change with it.</p></div></div>
-    </div>
-  </div>
-  {edge("bottom")}
-</section>
-
-<section class="section">
-  <div class="wrap">
-    <h2 class="h2">Selected work</h2>
-    <p class="lede" style="margin-top:1.2rem">The systems we've built and are building. Real work, labelled honestly.</p>
-    <div class="rows">{work_rows()}</div>
-    <p class="note">More will appear here as projects are ready to share.</p>
-  </div>
-</section>
-
-<section class="section dark">{edge("top")}
-  <div class="wrap">
-    <h2 class="h2">Why OC</h2>
-    <div class="why">
-      <div>{ico("chat")}<h3>Business-first</h3><p>We ask before we recommend. Sometimes the right answer is a simpler site, not a bigger system.</p></div>
-      <div>{ico("loop")}<h3>Scalability-first</h3><p>We choose foundations that can grow, so growth doesn't mean starting over.</p></div>
-      <div>{ico("system")}<h3>Connected solutions</h3><p>Your site, leads and workflows share information instead of living in separate places.</p></div>
-      <div>{ico("eye")}<h3>Long-term partnership</h3><p>The first project is the start of a working relationship, not the end of one.</p></div>
-    </div>
-  </div>
-  {edge("bottom")}
-</section>
-
-<section class="section">
-  <div class="wrap split">
-    <div>
-      <h2 class="h2">About OC</h2>
-      {founder_block()}
-    </div>
-    <div>
-      <p class="lede">OC is a growing technology company working with businesses that are moving from traditional operations to digital ones.</p>
-      <p>We're building toward a single partner that can solve one problem today and support the next ones as they appear.</p>
-      <p><a class="link" href="about.html">More about OC {ico("arrow")}</a></p>
-    </div>
-  </div>
-</section>
-
-<section class="section" style="padding-top:0">
-  <div class="wrap">
-    <h2 class="h2">Questions</h2>
-    {faq(FAQ_HOME)}
-  </div>
-</section>
-
-{final_cta()}
-"""
-    page("index.html", "home", "Official Creations | From Offline to Online. Beyond.",
-         "Official Creations builds connected digital and operational foundations that help businesses move online, run better and keep scaling.", body)
 
 
 # ---------- Ecosystem ----------
@@ -598,9 +570,11 @@ def about():
 
 # ---------- Book ----------
 def book():
-    email = CFG["contact_email"]
-    url = CFG["booking_url"].strip()
-    sched = (f'<p>{btn("Pick a time online", esc(url), ghost=True)}</p><p class="form-note">Or send the form and we\'ll reply by email.</p>' if url else "")
+    sched = ""
+    if CFG["booking_url"].strip():
+        sched = f'<div class="cta-row" style="margin-bottom:1.2rem">{pick_link()}{chat_link()}</div><p class="form-note" style="margin-bottom:1.2rem">Or suggest a time below and we will confirm by email.</p>'
+    elif WA:
+        sched = f'<div class="cta-row" style="margin-bottom:1.2rem">{chat_link()}</div>'
     body = f"""
 <section class="page-hero"><div class="wrap">
   <h1>Let's understand your business first.</h1>
@@ -621,25 +595,7 @@ def book():
   </div>
   <div>
     {sched}
-    <form class="consult" id="consult-form" data-to="{esc(email)}">
-      <div class="field-row">
-        <div class="field"><label for="f-name">Your name</label><input id="f-name" name="name" required autocomplete="name"></div>
-        <div class="field"><label for="f-email">Email</label><input id="f-email" name="email" type="email" required autocomplete="email"></div>
-      </div>
-      <div class="field"><label for="f-business">Business name</label><input id="f-business" name="business" required autocomplete="organization"></div>
-      <div class="field"><label for="f-site">Website or social page <span>(optional)</span></label><input id="f-site" name="site"></div>
-      <div class="field"><label for="f-interest">What are you looking for?</label>
-        <select id="f-interest" name="interest">
-          <option>A website or better online presence</option>
-          <option>Better systems and automation</option>
-          <option>Both</option>
-          <option>Not sure yet</option>
-        </select></div>
-      <div class="field"><label for="f-challenge">What's getting in the way?</label><textarea id="f-challenge" name="challenge" required></textarea></div>
-      <button class="btn" type="submit"><span>Request a consultation</span>{ico("arrow")}</button>
-      <p class="form-msg" role="status"></p>
-      <p class="form-note">Sending opens your email app with this message ready to go.</p>
-    </form>
+    {consult_form("b")}
   </div>
 </div></section>
 """
@@ -648,6 +604,9 @@ def book():
 
 
 if __name__ == "__main__":
-    for fn in (home, ecosystem, digital, ops, products, about, book):
+    import sys
+    import homepage
+    homepage.build(sys.modules[__name__])
+    for fn in (ecosystem, digital, ops, products, about, book):
         fn()
     print("Built 7 pages.")
