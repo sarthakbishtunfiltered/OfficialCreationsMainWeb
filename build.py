@@ -146,7 +146,7 @@ def footer():
         <li><a href="business-operations.html">Business Operations</a></li></ul></div>
       <div><h4>Contact</h4><ul>{contact}</ul></div>
     </div>
-    <div class="foot-legal"><span>&copy; <span id="yr">2026</span> Official Creations &middot; All rights reserved</span><nav class="foot-legal-links" aria-label="Legal"><span>Legal</span><a href="terms.html">Terms of Service</a></nav></div>
+    <div class="foot-legal"><span>&copy; <span id="yr">2026</span> Official Creations &middot; All rights reserved</span><nav class="foot-legal-links" aria-label="Legal"><span>Legal</span><a href="privacy.html">Privacy Policy</a><a href="terms.html">Terms of Service</a></nav></div>
   </div></div>
 </footer>"""
 
@@ -610,7 +610,8 @@ def book():
 def _inline(t):
     t = esc(t)
     t = re.sub(r"\*\*(.+?)\*\*", r"<strong>\1</strong>", t)
-    return re.sub(r"(https?://[^\s<]+)", r'<a href="\1">\1</a>', t)
+    t = re.sub(r"\[([^\]]+)\]\((https?://[^)\s]+)\)", r'<a href="\2">\1</a>', t)
+    return re.sub(r'(?<![">])(https?://[^\s<]+)', r'<a href="\1">\1</a>', t)
 
 
 def _fill(t):
@@ -629,7 +630,7 @@ def _md_legal(src):
     def flush():
         nonlocal para
         if para:
-            out.append("<p>" + " ".join(para) + "</p>")
+            out.append("<p>" + "<br>".join(para) + "</p>")
             para = []
 
     def mark(h):
@@ -666,37 +667,54 @@ def _md_legal(src):
     return "\n".join(out), toc
 
 
-def terms():
-    src = (ROOT / "content" / "terms-of-service.md").read_text(encoding="utf-8")
+def _legal(fname, key, title, mdfile, desc, prep=None):
+    src = (ROOT / "content" / mdfile).read_text(encoding="utf-8").replace("\\@", "@")
+    if prep:
+        src = prep(src)
     src = re.sub(r"^#\s.*\n", "", src, count=1)
-    stamp = None
-    m = re.search(r"\*\*Last Updated:\*\*\s*(.*)", src)
+    stamp = ""
+    m = re.search(r"\*\*Last [Uu]pdated:?\*?\*?\s*(.*?)\*{0,2}\s*$", src, flags=re.M)
     if m:
-        stamp = _fill(m.group(1))
+        stamp = _fill(m.group(1).strip("* "))
         src = src.replace(m.group(0), "", 1)
     html_body, toc = _md_legal(src)
-    stamp_html = re.sub(r"(\u2063)(\[[^\]]+\])", r'<mark class="ph">\2</mark>', stamp or "")
+    stamp_html = re.sub(r"(\u2063)(\[[^\]]+\])", r'<mark class="ph">\2</mark>', stamp)
     toc_html = "".join(f'<li><a href="#{s}">{esc(t)}</a></li>' for s, t in toc)
+    status = ""
+    if key == "terms":
+        status = ('<aside class="legal-status" aria-label="Status of Official Creations"><h2>Status of Official Creations</h2>'
+                  '<p>Official Creations (&ldquo;OC&rdquo;) is a trading name. It is not currently a registered company, limited liability '
+                  'partnership or other separate legal entity. This page will be updated if that changes.</p></aside>')
     body = f"""
 <section class="page-hero"><div class="wrap">
-  <h1>Terms of Service</h1>
+  <h1>{title}</h1>
   <p class="lede">Last updated: {stamp_html}</p>
 </div></section>
 <section class="section" style="padding-top:0"><div class="wrap legal">
   <nav class="legal-toc" aria-label="Contents"><h2>Contents</h2><ol>{toc_html}</ol></nav>
-  <div><article class="legal-doc">{html_body}</article>
-  <aside class="legal-status" aria-label="Status of Official Creations"><h2>Status of Official Creations</h2>
-  <p>Official Creations (&ldquo;OC&rdquo;) is a trading name. It is not currently a registered company, limited liability partnership or other separate legal entity. This page will be updated if that changes.</p></aside></div>
+  <div><article class="legal-doc">{html_body}</article>{status}</div>
 </div></section>
 """
-    page("terms.html", "terms", "Terms of Service | Official Creations",
-         "The terms that govern use of the Official Creations website, platforms and services.", body)
+    page(fname, key, f"{title} | Official Creations", desc, body)
+
+
+def terms():
+    _legal("terms.html", "terms", "Terms of Service", "terms-of-service.md",
+           "The terms that govern use of the Official Creations website, platforms and services.")
+
+
+def privacy():
+    # The public contact address is the business email only; the source text also lists a personal address.
+    def prep(s):
+        return re.sub(r"Email:\s*officialcreations\.online@gmail\.com,\s*\S+@\S+", "Email: " + CFG["contact_email"], s)
+    _legal("privacy.html", "privacy", "Privacy Policy", "privacy-policy.md",
+           "How Official Creations collects, uses, stores and protects personal information.", prep)
 
 
 if __name__ == "__main__":
     import sys
     import homepage
     homepage.build(sys.modules[__name__])
-    for fn in (ecosystem, digital, ops, products, about, book, terms):
+    for fn in (ecosystem, digital, ops, products, about, book, terms, privacy):
         fn()
-    print("Built 8 pages.")
+    print("Built 9 pages.")
