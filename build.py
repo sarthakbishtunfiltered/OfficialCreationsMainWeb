@@ -124,7 +124,7 @@ def header(key):
 
 def footer():
     pub = CFG["contact_email"]
-    email_li = "" if "REPLACE_ME" in pub else f'<li><a href="mailto:{esc(pub)}">{esc(pub)}</a></li>'
+    email_li = "" if "REPLACE_ME" in pub else f'<li><a href="mailto:{esc(pub)}">Email us</a></li>'
     wa_li = f'<li><a href="{WA}" target="_blank" rel="noopener">Chat on WhatsApp</a></li>' if WA else ""
     socials = "".join(
         f'<li><a href="{esc(u)}" rel="noopener">{esc(n)}</a></li>' for n, u in CFG["socials"].items() if u
@@ -223,8 +223,10 @@ def page(fname, key, title, desc, body, home=False):
 <meta property="og:title" content="{esc(title)}">
 <meta property="og:description" content="{esc(desc)}">
 <meta property="og:type" content="website">
-<link rel="icon" type="image/png" href="assets/img/oc-logo-white-on-black.png">
-<link rel="apple-touch-icon" href="assets/img/oc-logo-white-on-black.png">
+<link rel="icon" type="image/png" sizes="192x192" href="assets/img/oc-favicon-192.png">
+<link rel="icon" type="image/png" sizes="512x512" href="assets/img/oc-favicon-circle.png">
+<link rel="shortcut icon" href="favicon.ico">
+<link rel="apple-touch-icon" href="assets/img/oc-favicon-circle.png">
 {FONTS}
 <link rel="stylesheet" href="assets/css/oc.css">
 {extra_css}</head>

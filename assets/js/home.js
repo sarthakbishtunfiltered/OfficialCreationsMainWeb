@@ -36,7 +36,6 @@
 
   /* Scroll-driven pieces share one rAF loop. */
   var pars = reduce ? [] : Array.prototype.slice.call(document.querySelectorAll("[data-par]"));
-  var story = document.querySelector("[data-story]");
   var draw = document.querySelector("[data-draw]");
   var clip = draw && draw.querySelector(".pclip");
   var stops = draw ? Array.prototype.slice.call(draw.querySelectorAll(".pstop")) : [];
@@ -55,20 +54,6 @@
       el.style.transform = "translate3d(0," + (-mid * speed).toFixed(1) + "px,0)";
     });
 
-    if (story && !reduce) {
-      var desktop = window.innerWidth >= 1000;
-      var p;
-      if (desktop) {
-        var wrap = story.closest(".wrap");
-        var r = wrap.getBoundingClientRect();
-        p = clamp(-r.top / Math.max(1, r.height - h * 0.9) * 1.15 + 0.02);
-      } else {
-        var s = story.querySelector(".story-scene").getBoundingClientRect();
-        p = clamp((h * 0.85 - s.top) / (h * 0.55));
-      }
-      story.style.setProperty("--p", p.toFixed(3));
-    }
-
     if (draw && clip && !reduce) {
       var d = draw.getBoundingClientRect();
       var f = clamp((h * 0.62 - d.top) / d.height);
@@ -82,6 +67,99 @@
     window.addEventListener("resize", onScroll);
   }
   update();
+
+
+  /* Offline to online story: layers in depth.
+     Tablet and desktop: pinned, scroll-driven, damped. Phones: Offline / Online buttons, no scroll motion. */
+  (function () {
+    var story = document.querySelector("[data-story]");
+    if (!story) return;
+    var scene = story.querySelector(".story-scene");
+    var wrap = story.closest(".wrap");
+    var layers = Array.prototype.slice.call(story.querySelectorAll(".ly"));
+    var buttons = Array.prototype.slice.call(story.querySelectorAll(".sw"));
+    var phone = window.matchMedia("(max-width: 699px)");
+    var target = 0, shown = 0, last = 0, raf = 0, ready = false;
+
+    var ease = function (t) { return t < .5 ? 4 * t * t * t : 1 - Math.pow(-2 * t + 2, 3) / 2; };
+    var easeOut = function (t) { return 1 - Math.pow(1 - t, 3); };
+    var back = function (t) { var c1 = 1.15, c3 = c1 + 1; return 1 + c3 * Math.pow(t - 1, 3) + c1 * Math.pow(t - 1, 2); };
+    var seg = function (p, a, b) { return clamp((p - a) / (b - a)); };
+
+    /* One value, p (0 to 1), drives everything, so forward and reverse always match. */
+    function render(p) {
+      var tilt = ease(seg(p, 0, .2)) * (1 - ease(seg(p, .78, 1)));
+      var lift = easeOut(seg(p, .2, .5)) * (1 - ease(seg(p, .78, 1)));
+      scene.style.setProperty("--tilt", tilt.toFixed(4));
+      scene.style.setProperty("--lift", lift.toFixed(4));
+      scene.style.setProperty("--off", (1 - seg(p, .38, .52)).toFixed(3));
+      scene.style.setProperty("--on", ease(seg(p, .6, .78)).toFixed(3));
+      for (var i = 0; i < layers.length; i++) {
+        var s = .4 + i * .05;
+        layers[i].style.setProperty("--m", back(seg(p, s, s + .3)).toFixed(4));
+      }
+    }
+
+    /* Raw scroll position to 0..1. Pinned: progress through the stuck distance, with small hold zones at both ends. */
+    function measure() {
+      var h = vh();
+      var panel = story.getBoundingClientRect();
+      var top = parseFloat(getComputedStyle(story).top);
+      if (isNaN(top)) top = 0;
+      var fits = panel.height <= h - top - 12;
+      story.classList.toggle("nopin", !fits);
+      wrap.classList.toggle("nopin", !fits);
+      if (fits) {
+        var r = wrap.getBoundingClientRect();
+        var raw = (top - r.top) / Math.max(1, r.height - panel.height);
+        return clamp((raw - .04) / .9);
+      }
+      var s = scene.getBoundingClientRect();
+      return clamp((h * .85 - s.top) / (h * .6));
+    }
+
+    function frame(t) {
+      var dt = Math.min(.1, (t - last) / 1000 || .016); last = t;
+      shown += (target - shown) * (1 - Math.exp(-dt * 11));
+      if (Math.abs(target - shown) < .0008) shown = target;
+      render(shown);
+      raf = shown === target ? 0 : requestAnimationFrame(frame);
+    }
+    function kick() {
+      target = measure();
+      if (!raf) { last = performance.now(); raf = requestAnimationFrame(frame); }
+    }
+
+    function setPhone(on) {
+      scene.classList.toggle("is-online", on);
+      buttons.forEach(function (b) { b.setAttribute("aria-pressed", String((b.getAttribute("data-state") === "on") === on)); });
+    }
+
+    function mode() {
+      window.removeEventListener("scroll", kick);
+      window.removeEventListener("resize", kick);
+      var props = ["--tilt", "--lift", "--off", "--on"];
+      if (phone.matches) {
+        props.forEach(function (n) { scene.style.removeProperty(n); });
+        layers.forEach(function (l) { l.style.removeProperty("--m"); });
+        story.classList.remove("nopin"); wrap.classList.remove("nopin");
+        return;
+      }
+      scene.classList.remove("is-online");
+      if (reduce) { render(1); return; }
+      window.addEventListener("scroll", kick, { passive: true });
+      window.addEventListener("resize", kick);
+      shown = target = measure();
+      render(shown);
+    }
+
+    buttons.forEach(function (b) {
+      b.addEventListener("click", function () { setPhone(b.getAttribute("data-state") === "on"); });
+    });
+    if (phone.addEventListener) phone.addEventListener("change", mode); else if (phone.addListener) phone.addListener(mode);
+    mode();
+    ready = true;
+  })();
 
   /* Ecosystem constellation: pick a shape to focus it and its connections. */
   document.querySelectorAll("[data-const]").forEach(function (root) {

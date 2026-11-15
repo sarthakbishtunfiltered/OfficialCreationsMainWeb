@@ -62,41 +62,57 @@ def hero(h):
 
 
 # ---------- Offline to online story (scroll-driven) ----------
-def _mph(x0, y0, w0, h0, x1, y1, w1, h1, fa, fb):
-    """A rectangle that morphs from one box to another as --p goes 0 to 1."""
-    sx, sy = round(w1 / w0, 4), round(h1 / h0, 4)
-    return (f'<g class="mph" style="--x0:{x0};--y0:{y0};--tx:{x1 - x0};--ty:{y1 - y0};--sx:{sx};--sy:{sy}">'
-            f'<rect width="{w0}" height="{h0}" class="f-{fa}"/>'
-            f'<rect class="mphb f-{fb}" width="{w0}" height="{h0}"/></g>')
+def _ly(i, cls, a, b, r, c, z, inner=""):
+    """One scene layer. a = shop box (x, y, w, h) and b = website box in a 400x320 space;
+    r = corner radius shop/site; c = colour shop/site; z = lift depth when the layers separate."""
+    st = (f"--i:{i};--x0:{a[0]};--y0:{a[1]};--w0:{a[2]};--h0:{a[3]};--x1:{b[0]};--y1:{b[1]};--w1:{b[2]};--h1:{b[3]};"
+          f"--r0:{r[0]};--r1:{r[1]};--c0:var(--{c[0]});--c1:{c[1]};--z:{z};--zi:{i}")
+    return f'<div class="ly {cls}" style="{st}">{inner}</div>'
 
 
-def _story_svg():
-    stripes = "".join(f'<rect x="{50 + i * 50}" y="70" width="25" height="50" class="f-white" opacity=".3"/>' for i in range(6))
-    off = (
-        f'<g class="off-only">{stripes}'
-        '<text x="200" y="49" text-anchor="middle" class="sign-t">OPEN</text>'
-        '<circle cx="148" cy="244" r="4" class="f-sun"/>'
-        '<path d="M250 160V240M190 200H310" stroke="#fff" stroke-width="2" opacity=".7" fill="none"/></g>'
-    )
-    on = (
-        '<g class="on-only">'
-        '<circle cx="56" cy="78" r="4" class="f-coral"/><circle cx="70" cy="78" r="4" class="f-sun"/><circle cx="84" cy="78" r="4" class="f-leaf"/>'
-        '<rect x="60" y="118" width="120" height="14" rx="3" class="f-ink"/>'
-        '<rect x="60" y="142" width="100" height="8" rx="3" class="f-ink" opacity=".22"/>'
-        '<rect x="60" y="158" width="80" height="8" rx="3" class="f-ink" opacity=".22"/>'
-        '<rect x="190" y="240" width="50" height="36" rx="6" class="f-lav"/>'
-        '<rect x="248" y="240" width="50" height="36" rx="6" class="f-mint"/>'
-        '<rect x="306" y="240" width="40" height="36" rx="6" class="f-blush"/></g>'
-    )
-    parts = [
-        _mph(60, 120, 280, 170, 40, 60, 320, 230, "butter", "white"),   # shop wall -> page
-        _mph(50, 70, 300, 50, 40, 60, 320, 36, "coral", "indigo"),      # awning -> browser bar
-        _mph(130, 28, 140, 30, 100, 70, 200, 16, "ink", "white"),       # sign -> address bar
-        _mph(100, 190, 60, 100, 70, 236, 100, 32, "indigo", "coral"),   # door -> button
-        _mph(190, 160, 120, 80, 210, 116, 130, 110, "sky", "lav"),      # window -> hero image
+def _on(cls, box, z, inner="", extra=""):
+    st = f"--x:{box[0]};--y:{box[1]};--w:{box[2]};--h:{box[3]};--z:{z}{extra}"
+    return f'<div class="on-only {cls}" style="{st}">{inner}</div>'
+
+
+def _off(cls, box, z, inner=""):
+    st = f"--x:{box[0]};--y:{box[1]};--w:{box[2]};--h:{box[3]};--z:{z}"
+    return f'<div class="off-only sh {cls}" style="{st}">{inner}</div>'
+
+
+def _story_stage(h):
+    """Layered 3D stage: the shop's parts separate in depth, then become the website's parts."""
+    layers = [
+        _ly(0, "ly-wall", (60, 120, 280, 170), (40, 60, 320, 230), (3, 14), ("butter", "#fff"),
+            0, '<i class="bricks off-only"></i><i class="plinth off-only"></i>'),
+        _ly(1, "ly-window", (190, 160, 120, 80), (210, 116, 130, 110), (3, 12), ("sky", "var(--lav)"), 50,
+            '<span class="disp off-only"><i class="shelf"></i><i class="pot"></i><i class="leafy"></i><i class="gift"></i>'
+            '<i class="jar"></i></span><i class="glare off-only"></i><i class="cross off-only"></i>'),
+        _ly(2, "ly-door", (100, 190, 60, 100), (70, 236, 100, 32), (3, 99), ("indigo", "var(--coral)"), 60,
+            '<i class="glass off-only"></i><i class="plate off-only"></i><i class="knob off-only"></i>'),
+        _ly(3, "ly-awning", (50, 70, 300, 50), (40, 60, 320, 36), (2, 12), ("coral", "var(--indigo)"), 40,
+            '<i class="stripes off-only"></i><i class="scallops off-only"></i>'),
+        _ly(4, "ly-sign", (130, 28, 140, 30), (100, 70, 200, 16), (4, 99), ("ink", "#fff"), 80,
+            '<i class="bulbs off-only"></i><b class="open off-only">OPEN</b>'),
     ]
-    return ('<svg class="story-svg" viewBox="0 0 400 320" role="img" aria-label="A shopfront turning into a website as you scroll">'
-            + "".join(parts) + off + on + "</svg>")
+    shop = [
+        _off("chain c1", (150, 58, 2, 12), 76),
+        _off("chain c2", (248, 58, 2, 12), 76),
+        _off("plant", (66, 232, 28, 58), 8,
+             '<i class="l1"></i><i class="l2"></i><i class="l3"></i><i class="pt"></i>'),
+        _off("step", (92, 288, 76, 8), 4),
+    ]
+    online = [
+        _on("dots", (52, 74, 40, 8), 95, '<i class="d1"></i><i class="d2"></i><i class="d3"></i>'),
+        _on("t1", (60, 118, 120, 14), 55, "", ""),
+        _on("t2", (60, 142, 100, 8), 55),
+        _on("t3", (60, 158, 80, 8), 55),
+        _on("cd cd1", (190, 240, 50, 36), 30),
+        _on("cd cd2", (248, 240, 50, 36), 30),
+        _on("cd cd3", (306, 240, 40, 36), 30),
+    ]
+    return ('<div class="stage3d" role="img" aria-label="A shopfront separating into layers and re-forming as a website">'
+            '<div class="rig"><div class="ground"></div>' + "".join(layers) + "".join(shop) + "".join(online) + "</div></div>")
 
 
 def story(h):
@@ -110,8 +126,12 @@ def story(h):
         <p>OC designs them as one system, so what you build today still fits what you need next year.</p>
       </div>
       <div class="story-scene">
-        {_story_svg()}
+        {_story_stage(h)}
         <div class="story-labels" aria-hidden="true"><span class="off">Offline</span><span class="on">Online</span></div>
+        <div class="story-switch" role="group" aria-label="Show offline or online">
+          <button type="button" class="sw" data-state="off" aria-pressed="true">Offline</button>
+          <button type="button" class="sw" data-state="on" aria-pressed="false">Online</button>
+        </div>
       </div>
     </div>
   </div>
@@ -375,7 +395,7 @@ def closing(h):
     half = unit * 3
     quick = h.pick_link() + h.chat_link()
     email = h.CFG["contact_email"]
-    email_line = "" if "REPLACE_ME" in email else f'<p class="form-note">Prefer email? <a class="link" href="mailto:{h.esc(email)}">{h.esc(email)}</a></p>'
+    email_line = "" if "REPLACE_ME" in email else f'<p class="form-note">Prefer email? <a class="link" href="mailto:{h.esc(email)}">Email us</a></p>'
     return f"""
 <section class="sec"><div class="wrap">
   <div class="panel mint close">
