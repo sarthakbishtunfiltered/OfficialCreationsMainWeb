@@ -501,3 +501,11 @@ mark.ph { background: var(--butter); color: var(--ink); border-radius: 5px; padd
 .sheet .muted { margin-bottom: 0; }
 @media (max-width: 380px) { .sheet .sheet-quick .btn { font-size: .82rem; padding-inline: .6rem; } }
 .sheet .field-row { align-items: end; }
+
+/* v19: phones show the company name beside the logo */
+@media (max-width: 699px) {
+  .logo small { display: inline; font-size: .8rem; white-space: nowrap; }
+  .logo { gap: .5rem; min-width: 0; }
+  .logo img { height: 2rem; }
+}
+@media (max-width: 359px) { .logo small { font-size: .7rem; } .nav-book { padding-inline: .8rem; } }
